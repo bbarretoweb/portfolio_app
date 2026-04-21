@@ -1,8 +1,10 @@
 import 'dart:math' as math;
+
 import 'package:design_kit/design_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:portfolio_app/core/navigation/navigation_provider.dart';
+
 import 'package:portfolio_app/shared/widgets/max_width_box.dart';
 
 /// Full-viewport hero section with a cycling role headline.
@@ -42,16 +44,18 @@ class _HeroSectionState extends ConsumerState<HeroSection> {
           children: [
             // Dot-grid background
             Positioned.fill(
-              child: CustomPaint(
-                painter: _DotGridPainter(
-                  color: colorScheme.onSurface,
-                  maxAlpha: dotAlpha,
-                  mousePos: _mousePos,
-                  disableAnimations: MediaQuery.disableAnimationsOf(context),
+              child: RepaintBoundary(
+                child: CustomPaint(
+                  painter: _DotGridPainter(
+                    color: colorScheme.onSurface,
+                    maxAlpha: dotAlpha,
+                    mousePos: _mousePos,
+                    disableAnimations: MediaQuery.disableAnimationsOf(context),
+                  ),
                 ),
               ),
             ),
-            // Content
+            // Content without scroll parallax
             Center(
               child: MaxWidthBox(
                 child: Padding(
@@ -88,8 +92,8 @@ class _HeroSectionState extends ConsumerState<HeroSection> {
       label: 'Bruno, the portfolio owner',
       image: true,
       child: Container(
-        width: 160,
-        height: 160,
+        width: 200,
+        height: 200,
         decoration: BoxDecoration(
           shape: BoxShape.circle,
           boxShadow: [
