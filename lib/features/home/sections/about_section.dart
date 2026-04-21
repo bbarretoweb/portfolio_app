@@ -122,8 +122,6 @@ class _AboutSectionState extends State<AboutSection> {
       ),
     );
   }
-
-
 }
 
 class _AnimatedStatCard extends StatefulWidget {
@@ -183,7 +181,9 @@ class _AnimatedStatCardState extends State<_AnimatedStatCard> {
                       TweenAnimationBuilder<double>(
                         tween: Tween(
                           begin: 0,
-                          end: widget.isVisible ? widget.targetValue.toDouble() : 0,
+                          end: widget.isVisible
+                              ? widget.targetValue.toDouble()
+                              : 0,
                         ),
                         duration: disableAnimations
                             ? Duration.zero
@@ -203,7 +203,8 @@ class _AnimatedStatCardState extends State<_AnimatedStatCard> {
                       ),
                       const SizedBox(width: 16),
                       Expanded(
-                        child: Text(widget.label, style: theme.textTheme.bodyMedium),
+                        child: Text(widget.label,
+                            style: theme.textTheme.bodyMedium),
                       ),
                     ],
                   ),
@@ -271,18 +272,50 @@ class _PopOutAvatarState extends State<_PopOutAvatar> {
 
     // Color matrix for grayscale
     const List<double> grayscaleMatrix = <double>[
-      0.2126, 0.7152, 0.0722, 0, 0,
-      0.2126, 0.7152, 0.0722, 0, 0,
-      0.2126, 0.7152, 0.0722, 0, 0,
-      0,      0,      0,      1, 0,
+      0.2126,
+      0.7152,
+      0.0722,
+      0,
+      0,
+      0.2126,
+      0.7152,
+      0.0722,
+      0,
+      0,
+      0.2126,
+      0.7152,
+      0.0722,
+      0,
+      0,
+      0,
+      0,
+      0,
+      1,
+      0,
     ];
 
     // Identity matrix (full color)
     const List<double> colorMatrix = <double>[
-      1, 0, 0, 0, 0,
-      0, 1, 0, 0, 0,
-      0, 0, 1, 0, 0,
-      0, 0, 0, 1, 0,
+      1,
+      0,
+      0,
+      0,
+      0,
+      0,
+      1,
+      0,
+      0,
+      0,
+      0,
+      0,
+      1,
+      0,
+      0,
+      0,
+      0,
+      0,
+      1,
+      0,
     ];
 
     final showColor = widget.isVisible || _isHovering;
@@ -347,7 +380,7 @@ class _PopOutAvatarState extends State<_PopOutAvatar> {
                       return ColorFiltered(
                         colorFilter: ColorFilter.matrix(matrix),
                         child: Image.asset(
-                          'assets/images/meTransp.png',
+                          'assets/images/meSmiling.jpg',
                           height: 320,
                           fit: BoxFit.contain,
                           filterQuality: FilterQuality.medium,
