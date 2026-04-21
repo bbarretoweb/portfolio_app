@@ -1,6 +1,8 @@
 import 'dart:ui';
 import 'package:design_kit/design_kit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:portfolio_app/shared/utils/brand_icons.dart';
 import 'package:portfolio_app/shared/widgets/max_width_box.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 
@@ -45,8 +47,8 @@ class _AboutSectionState extends State<AboutSection> {
                 children: [
                   // Pop-out Image
                   Align(
-                    alignment: Alignment.center,
-                    child: _PopOutAvatar(isVisible: _isVisible),
+                    alignment: Alignment.topCenter,
+                    child: _ProfileAvatar(isVisible: _isVisible),
                   ),
                   // Bio card
                   Container(
@@ -71,7 +73,7 @@ class _AboutSectionState extends State<AboutSection> {
                   ),
                   // Stat cards
                   Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
                       _AnimatedStatCard(
                         label: 'Years of Experience',
@@ -97,24 +99,93 @@ class _AboutSectionState extends State<AboutSection> {
                   ),
                 ],
               ),
-              const SizedBox(height: 40),
-              const DkDivider(label: Text('Tech Stack')),
-              const SizedBox(height: 24),
-              const Wrap(
-                spacing: 8,
-                runSpacing: 8,
-                children: [
-                  DkTag(label: 'Flutter'),
-                  DkTag(label: 'Dart 3+'),
-                  DkTag(label: 'Riverpod'),
-                  DkTag(label: 'go_router'),
-                  DkTag(label: 'WCAG 2.1 AA'),
-                  DkTag(label: 'CI/CD'),
-                  DkTag(label: 'Firebase'),
-                  DkTag(label: 'REST / GraphQL'),
-                  DkTag(label: 'Design Systems'),
-                  DkTag(label: 'Unit & Golden Tests'),
-                ],
+              const SizedBox(height: 64),
+              Center(
+                child: Column(
+                  children: [
+                    const DkDivider(label: Text('Tech Stack')),
+                    const SizedBox(height: 32),
+                    Wrap(
+                      spacing: 12,
+                      runSpacing: 12,
+                      alignment: WrapAlignment.center,
+                      children: [
+                        DkTag(
+                          label: 'Flutter',
+                          icon: SvgPicture.string(
+                            BrandIcons.flutter,
+                            width: 16,
+                            height: 16,
+                            colorFilter: ColorFilter.mode(
+                              theme.colorScheme.onPrimaryContainer,
+                              BlendMode.srcIn,
+                            ),
+                          ),
+                        ),
+                        DkTag(
+                          label: 'Dart 3+',
+                          icon: SvgPicture.string(
+                            BrandIcons.dart,
+                            width: 16,
+                            height: 16,
+                            colorFilter: ColorFilter.mode(
+                              theme.colorScheme.onPrimaryContainer,
+                              BlendMode.srcIn,
+                            ),
+                          ),
+                        ),
+                        const DkTag(
+                          label: 'Riverpod',
+                          icon: Icon(Icons.water_drop_rounded, size: 16),
+                        ),
+                        const DkTag(
+                          label: 'go_router',
+                          icon: Icon(Icons.alt_route_rounded, size: 16),
+                        ),
+                        const DkTag(
+                          label: 'WCAG 2.1 AA',
+                          icon: Icon(Icons.accessibility_new_rounded, size: 16),
+                        ),
+                        const DkTag(
+                          label: 'CI/CD',
+                          icon: Icon(Icons.loop_rounded, size: 16),
+                        ),
+                        DkTag(
+                          label: 'Firebase',
+                          icon: SvgPicture.string(
+                            BrandIcons.firebase,
+                            width: 16,
+                            height: 16,
+                            colorFilter: ColorFilter.mode(
+                              theme.colorScheme.onPrimaryContainer,
+                              BlendMode.srcIn,
+                            ),
+                          ),
+                        ),
+                        DkTag(
+                          label: 'REST / GraphQL',
+                          icon: SvgPicture.string(
+                            BrandIcons.graphql,
+                            width: 16,
+                            height: 16,
+                            colorFilter: ColorFilter.mode(
+                              theme.colorScheme.onPrimaryContainer,
+                              BlendMode.srcIn,
+                            ),
+                          ),
+                        ),
+                        const DkTag(
+                          label: 'Design Systems',
+                          icon: Icon(Icons.category_rounded, size: 16),
+                        ),
+                        const DkTag(
+                          label: 'Unit & Golden Tests',
+                          icon: Icon(Icons.fact_check_rounded, size: 16),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
               ),
             ],
           ),
@@ -168,6 +239,7 @@ class _AnimatedStatCardState extends State<_AnimatedStatCard> {
                 // Base background
                 Container(
                   padding: const EdgeInsets.all(20),
+                  alignment: Alignment.center,
                   decoration: BoxDecoration(
                     color: theme.colorScheme.primaryContainer.withAlpha(60),
                     borderRadius: BorderRadius.circular(16),
@@ -175,7 +247,8 @@ class _AnimatedStatCardState extends State<_AnimatedStatCard> {
                       color: theme.colorScheme.primary.withAlpha(40),
                     ),
                   ),
-                  child: Row(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       // Number Ticker
                       TweenAnimationBuilder<double>(
@@ -190,21 +263,23 @@ class _AnimatedStatCardState extends State<_AnimatedStatCard> {
                             : const Duration(seconds: 2),
                         curve: Curves.easeOutExpo,
                         builder: (context, val, _) {
-                          return SizedBox(
-                            width: 60,
-                            child: Text(
-                              '${val.toInt()}${widget.suffix}',
-                              style: theme.textTheme.displaySmall?.copyWith(
-                                color: theme.colorScheme.primary,
-                              ),
+                          return Text(
+                            '${val.toInt()}${widget.suffix}',
+                            textAlign: TextAlign.center,
+                            style: theme.textTheme.displaySmall?.copyWith(
+                              color: theme.colorScheme.primary,
+                              fontWeight: FontWeight.bold,
                             ),
                           );
                         },
                       ),
-                      const SizedBox(width: 16),
-                      Expanded(
-                        child: Text(widget.label,
-                            style: theme.textTheme.bodyMedium),
+                      const SizedBox(height: 8),
+                      Text(
+                        widget.label,
+                        textAlign: TextAlign.center,
+                        style: theme.textTheme.labelLarge?.copyWith(
+                          color: theme.colorScheme.onSurfaceVariant,
+                        ),
                       ),
                     ],
                   ),
@@ -254,21 +329,20 @@ class _GlossyPainter extends CustomPainter {
       oldDelegate.mousePos != mousePos || oldDelegate.color != color;
 }
 
-class _PopOutAvatar extends StatefulWidget {
-  const _PopOutAvatar({required this.isVisible});
+class _ProfileAvatar extends StatefulWidget {
+  const _ProfileAvatar({required this.isVisible});
   final bool isVisible;
 
   @override
-  State<_PopOutAvatar> createState() => _PopOutAvatarState();
+  State<_ProfileAvatar> createState() => _ProfileAvatarState();
 }
 
-class _PopOutAvatarState extends State<_PopOutAvatar> {
+class _ProfileAvatarState extends State<_ProfileAvatar> {
   bool _isHovering = false;
 
   @override
   Widget build(BuildContext context) {
     final disableAnimations = MediaQuery.disableAnimationsOf(context);
-    final theme = Theme.of(context);
 
     // Color matrix for grayscale
     const List<double> grayscaleMatrix = <double>[
@@ -333,63 +407,46 @@ class _PopOutAvatarState extends State<_PopOutAvatar> {
               : const Duration(milliseconds: 1000),
           curve: Curves.easeOutBack,
           builder: (context, val, child) {
+            final sigma = disableAnimations ? 0.0 : 10.0 * (1.0 - val);
+            final blurred = sigma > 0.001
+                ? ImageFiltered(
+                    imageFilter: ImageFilter.blur(
+                      sigmaX: sigma,
+                      sigmaY: sigma,
+                      tileMode: TileMode.decal,
+                    ),
+                    child: child,
+                  )
+                : child!;
+
             return Opacity(
               opacity: val.clamp(0.0, 1.0),
               child: Transform.scale(
                 scale: 0.8 + (0.2 * val),
-                child: ImageFiltered(
-                  imageFilter: ImageFilter.blur(
-                    sigmaX: disableAnimations ? 0 : 10 * (1 - val),
-                    sigmaY: disableAnimations ? 0 : 10 * (1 - val),
-                  ),
-                  child: child,
-                ),
+                child: blurred,
               ),
             );
           },
-          child: SizedBox(
-            width: 250,
-            height: 300,
-            child: Stack(
-              alignment: Alignment.bottomCenter,
-              clipBehavior: Clip.none,
-              children: [
-                // Background Frame (Circle)
-                Container(
-                  width: 220,
-                  height: 220,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: theme.colorScheme.primaryContainer.withAlpha(50),
-                    border: Border.all(
-                      color: theme.colorScheme.primary.withAlpha(40),
-                      width: 2,
-                    ),
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(24),
+            child: TweenAnimationBuilder<List<double>>(
+              tween: ColorMatrixTween(
+                begin: grayscaleMatrix,
+                end: showColor ? colorMatrix : grayscaleMatrix,
+              ),
+              duration: const Duration(milliseconds: 1000),
+              builder: (context, matrix, child) {
+                return ColorFiltered(
+                  colorFilter: ColorFilter.matrix(matrix),
+                  child: Image.asset(
+                    'assets/images/meSmiling.jpg',
+                    width: 220,
+                    height: 220,
+                    fit: BoxFit.cover,
+                    filterQuality: FilterQuality.medium,
                   ),
-                ),
-                // Overflowing image (Pop-out effect)
-                Positioned(
-                  bottom: 0,
-                  child: TweenAnimationBuilder<List<double>>(
-                    tween: ColorMatrixTween(
-                      begin: grayscaleMatrix,
-                      end: showColor ? colorMatrix : grayscaleMatrix,
-                    ),
-                    duration: const Duration(milliseconds: 1000),
-                    builder: (context, matrix, child) {
-                      return ColorFiltered(
-                        colorFilter: ColorFilter.matrix(matrix),
-                        child: Image.asset(
-                          'assets/images/meSmiling.jpg',
-                          height: 320,
-                          fit: BoxFit.contain,
-                          filterQuality: FilterQuality.medium,
-                        ),
-                      );
-                    },
-                  ),
-                ),
-              ],
+                );
+              },
             ),
           ),
         ),
