@@ -7,12 +7,10 @@ environment:
   sdk: '>=3.3.0 <4.0.0'
 
 dependencies:
-
   design_kit:
     git:
       url: https://github.com/bbarretoweb/design_kit.git
       ref: master
-
   flutter:
     sdk: flutter
   flutter_riverpod: ^2.6.1
