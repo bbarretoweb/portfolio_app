@@ -37,7 +37,8 @@ const _projects = [
     imageUrl: '',
     title: 'Coming Soon',
     subtitle: 'Next Big Thing',
-    description: 'Currently working on a secret project involving game engines and 3D rendering.',
+    description:
+        'Currently working on a secret project involving game engines and 3D rendering.',
     tags: ['Secret', '3D'],
     imageLabel: 'Placeholder',
     isPlaceholder: true,
@@ -46,7 +47,8 @@ const _projects = [
     imageUrl: '',
     title: 'Coming Soon',
     subtitle: 'WIP',
-    description: 'Exploring WebAssembly and high-performance rust integrations.',
+    description:
+        'Exploring WebAssembly and high-performance rust integrations.',
     tags: ['WASM', 'Rust'],
     imageLabel: 'Placeholder',
     isPlaceholder: true,
@@ -90,7 +92,6 @@ class _ProjectsSectionState extends State<ProjectsSection> {
               title: 'Projects',
               subtitle: 'My Work',
               showDivider: true,
-              trailingAction: DkButton.text(label: const Text('View All')),
             ),
           ),
           const SizedBox(height: 40),
@@ -115,11 +116,13 @@ class _ProjectsSectionState extends State<ProjectsSection> {
                     padding: const EdgeInsets.symmetric(horizontal: 32),
                     physics: const BouncingScrollPhysics(),
                     itemCount: _projects.length,
-                    separatorBuilder: (context, index) => const SizedBox(width: 32),
+                    separatorBuilder: (context, index) =>
+                        const SizedBox(width: 32),
                     itemBuilder: (context, index) {
                       final screenWidth = MediaQuery.sizeOf(context).width;
                       // Max width of 600 for cards so they don't stretch in ultrawide
-                      final cardWidth = screenWidth > 800 ? 550.0 : screenWidth * 0.85;
+                      final cardWidth =
+                          screenWidth > 800 ? 550.0 : screenWidth * 0.85;
 
                       return SizedBox(
                         width: cardWidth,
@@ -182,19 +185,22 @@ class _ParallaxProjectCardState extends State<_ParallaxProjectCard> {
           animation: widget.scrollController,
           builder: (context, child) {
             double alignmentX = 0.0;
-            
-            if (widget.scrollController.hasClients && _cardKey.currentContext != null) {
-              final renderBox = _cardKey.currentContext!.findRenderObject() as RenderBox?;
+
+            if (widget.scrollController.hasClients &&
+                _cardKey.currentContext != null) {
+              final renderBox =
+                  _cardKey.currentContext!.findRenderObject() as RenderBox?;
               if (renderBox != null) {
                 final offset = renderBox.localToGlobal(Offset.zero);
                 final screenWidth = MediaQuery.sizeOf(context).width;
-                
+
                 // Calculate center of the card relative to the screen
                 final cardCenter = offset.dx + renderBox.size.width / 2;
-                
+
                 // Normalize from -1 to 1 where 0 is center of screen
-                final difference = (cardCenter - screenWidth / 2) / (screenWidth / 2);
-                
+                final difference =
+                    (cardCenter - screenWidth / 2) / (screenWidth / 2);
+
                 // Lógica: Conforme o card se move de -1 a 1 na tela, o Alignment.x vai de -0.5 a 0.5.
                 alignmentX = (difference * 0.5).clamp(-1.0, 1.0);
               }
@@ -230,12 +236,14 @@ class _ParallaxProjectCardState extends State<_ParallaxProjectCard> {
       duration: const Duration(milliseconds: 1500),
       curve: Curves.easeInOutSine,
       builder: (context, val, _) {
-        final shimmerColor = theme.colorScheme.surfaceContainerHighest.withAlpha((val * 100).round());
+        final shimmerColor = theme.colorScheme.surfaceContainerHighest
+            .withAlpha((val * 100).round());
         return Container(
           decoration: BoxDecoration(
             color: theme.colorScheme.surface,
             borderRadius: BorderRadius.circular(24),
-            border: Border.all(color: theme.colorScheme.outlineVariant.withAlpha(50)),
+            border: Border.all(
+                color: theme.colorScheme.outlineVariant.withAlpha(50)),
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -245,7 +253,8 @@ class _ParallaxProjectCardState extends State<_ParallaxProjectCard> {
                 height: 200,
                 decoration: BoxDecoration(
                   color: shimmerColor,
-                  borderRadius: const BorderRadius.vertical(top: Radius.circular(24)),
+                  borderRadius:
+                      const BorderRadius.vertical(top: Radius.circular(24)),
                 ),
               ),
               Padding(
@@ -257,9 +266,15 @@ class _ParallaxProjectCardState extends State<_ParallaxProjectCard> {
                     const SizedBox(height: 12),
                     Container(height: 16, width: 100, color: shimmerColor),
                     const SizedBox(height: 24),
-                    Container(height: 16, width: double.infinity, color: shimmerColor),
+                    Container(
+                        height: 16,
+                        width: double.infinity,
+                        color: shimmerColor),
                     const SizedBox(height: 8),
-                    Container(height: 16, width: double.infinity, color: shimmerColor),
+                    Container(
+                        height: 16,
+                        width: double.infinity,
+                        color: shimmerColor),
                     const SizedBox(height: 8),
                     Container(height: 16, width: 200, color: shimmerColor),
                   ],
@@ -270,7 +285,7 @@ class _ParallaxProjectCardState extends State<_ParallaxProjectCard> {
         );
       },
       onEnd: () {
-        // Reverse animation trick in stateful widgets requires more logic, 
+        // Reverse animation trick in stateful widgets requires more logic,
         // for simplicity we use a looping approach or just a slow one-way that looks good.
         // In a real scenario we could use an AnimationController on repeat.
       },
