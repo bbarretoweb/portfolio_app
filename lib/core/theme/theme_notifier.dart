@@ -13,7 +13,7 @@ const Map<String, DkBrandTheme> brandRegistry = {
 
 /// Human-readable labels for the brand dropdown.
 const Map<String, String> brandLabels = {
-  'portfolio': '✦ Bruno\'s Brand',
+  'portfolio': "✦ Bruno's Brand",
   'acme': '⬛ Acme Corp',
   'betacorp': '◆ BetaCorp',
 };

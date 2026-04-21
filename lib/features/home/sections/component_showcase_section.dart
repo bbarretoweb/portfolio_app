@@ -52,7 +52,6 @@ class _ComponentShowcaseSectionState extends State<ComponentShowcaseSection>
               const DkSectionHeader(
                 title: 'Component Showcase',
                 subtitle: 'Design Kit in action',
-                showDivider: true,
               ),
               const SizedBox(height: 40),
               
@@ -67,12 +66,19 @@ class _ComponentShowcaseSectionState extends State<ComponentShowcaseSection>
                   dividerColor: Theme.of(context).dividerColor.withAlpha(30),
                   indicatorColor: Theme.of(context).colorScheme.primary,
                   labelColor: Theme.of(context).colorScheme.primary,
-                  unselectedLabelColor: Theme.of(context).colorScheme.onSurfaceVariant,
+                  unselectedLabelColor:
+                      Theme.of(context).colorScheme.onSurfaceVariant,
                   tabs: const [
                     Tab(icon: Icon(Icons.touch_app_outlined), text: 'Actions'),
                     Tab(icon: Icon(Icons.input_outlined), text: 'Forms'),
-                    Tab(icon: Icon(Icons.chat_bubble_outline), text: 'Feedback'),
-                    Tab(icon: Icon(Icons.dashboard_outlined), text: 'Data Display'),
+                    Tab(
+                      icon: Icon(Icons.chat_bubble_outline),
+                      text: 'Feedback',
+                    ),
+                    Tab(
+                      icon: Icon(Icons.dashboard_outlined),
+                      text: 'Data Display',
+                    ),
                   ],
                 ),
                 const SizedBox(height: 40),
@@ -87,7 +93,8 @@ class _ComponentShowcaseSectionState extends State<ComponentShowcaseSection>
                         _ActionsShowcase(),
                         _FormsShowcase(
                           switchValue: _switchValue,
-                          onSwitchChanged: (v) => setState(() => _switchValue = v),
+                          onSwitchChanged: (v) =>
+                              setState(() => _switchValue = v),
                         ),
                         _FeedbackShowcase(),
                         _DisplayShowcase(),
@@ -134,7 +141,9 @@ class _ComponentPreview extends StatelessWidget {
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
             decoration: BoxDecoration(
-              border: Border(bottom: BorderSide(color: theme.dividerColor.withAlpha(30))),
+              border: Border(
+                bottom: BorderSide(color: theme.dividerColor.withAlpha(30)),
+              ),
               color: theme.colorScheme.surface,
             ),
             child: Text(
@@ -170,7 +179,7 @@ class _ActionsShowcase extends StatelessWidget {
           _ComponentPreview(
             className: 'DkButton.filled',
             child: DkButton.filled(
-                label: const Text('Filled'), onPressed: () {}),
+                label: const Text('Filled'), onPressed: () {},),
           ),
           _ComponentPreview(
             className: 'DkButton.outlined',
@@ -183,9 +192,9 @@ class _ActionsShowcase extends StatelessWidget {
             className: 'DkButton.text',
             child: DkButton.text(label: const Text('Text'), onPressed: () {}),
           ),
-          _ComponentPreview(
+          const _ComponentPreview(
             className: 'DkButton.filled (Disabled)',
-            child: DkButton.filled(label: const Text('Disabled')),
+            child: DkButton.filled(label: Text('Disabled')),
           ),
         ],
       ),
@@ -255,17 +264,17 @@ class _FeedbackShowcase extends StatelessWidget {
         spacing: 16,
         runSpacing: 16,
         children: [
-          _ComponentPreview(
+          const _ComponentPreview(
             className: 'DkBadge',
             child: DkBadge(
-              child: const Icon(Icons.notifications_outlined),
+              child: Icon(Icons.notifications_outlined),
             ),
           ),
-          _ComponentPreview(
+          const _ComponentPreview(
             className: 'DkBadge (Count)',
             child: DkBadge(
               count: 7,
-              child: const Icon(Icons.mail_outline_rounded),
+              child: Icon(Icons.mail_outline_rounded),
             ),
           ),
           _ComponentPreview(
@@ -275,7 +284,6 @@ class _FeedbackShowcase extends StatelessWidget {
               onPressed: () => DkSnackbar.show(
                 context: context,
                 message: 'ℹ️ This is an informational message.',
-                variant: DkSnackbarVariant.info,
               ),
             ),
           ),
@@ -319,11 +327,11 @@ class _DisplayShowcase extends StatelessWidget {
             spacing: 16,
             runSpacing: 16,
             children: [
-              _ComponentPreview(
+              const _ComponentPreview(
                 className: 'DkChip.filter',
                 child: DkChip(
                   variant: DkChipVariant.filter,
-                  label: const Text('Filter Chip'),
+                  label: Text('Filter Chip'),
                 ),
               ),
               _ComponentPreview(
@@ -352,12 +360,12 @@ class _DisplayShowcase extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 32),
-        _SubSection(
+        const _SubSection(
           label: 'Avatars',
           child: Wrap(
             spacing: 16,
             runSpacing: 16,
-            children: const [
+            children: [
               _ComponentPreview(
                 className: 'DkAvatar.sm',
                 child: DkAvatar(
@@ -382,12 +390,12 @@ class _DisplayShowcase extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 32),
-        _SubSection(
+        const _SubSection(
           label: 'Layout',
           child: Wrap(
             spacing: 16,
             runSpacing: 16,
-            children: const [
+            children: [
               _ComponentPreview(
                 className: 'DkDivider',
                 child: DkDivider(),

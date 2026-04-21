@@ -4,7 +4,7 @@ import 'package:visibility_detector/visibility_detector.dart';
 /// Wraps a [child] in a fade-and-slide reveal animation triggered once
 /// the widget enters the viewport.
 ///
-/// Respects [MediaQuery.disableAnimations] for accessibility.
+/// Respects accessibility settings for disabling animations.
 class AnimatedSection extends StatefulWidget {
   /// Creates an animated section.
   const AnimatedSection({

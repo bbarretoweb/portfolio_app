@@ -35,19 +35,19 @@ class ThemeshowSection extends ConsumerWidget {
         child: ConstrainedBox(
           constraints: const BoxConstraints(maxWidth: 960),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               const DkSectionHeader(
                 title: 'Live Theme Switching',
                 subtitle: 'Design System',
-                showDivider: true,
               ),
               const SizedBox(height: 16),
               Text(
-                'Every visual on this page is driven by a DkBrandTheme — an abstract '
-                'contract that lets any brand inject its colour palette, typography, '
-                'and radii without modifying the design_kit source.\n'
-                'Pick a brand below and watch the entire app re-render instantly.',
+                'Every visual on this page is driven by a DkBrandTheme — an '
+                'abstract contract that lets any brand inject its colour '
+                'palette, typography, and radii without modifying the '
+                'design_kit source.\n'
+                'Pick a brand below and watch the entire app re-render '
+                'instantly.',
                 textAlign: TextAlign.center,
                 style: theme.textTheme.bodyLarge?.copyWith(
                   color: colorScheme.onSurface.withAlpha(180),
@@ -162,7 +162,6 @@ class _BrandCardState extends State<_BrandCard> {
                   BoxShadow(
                     color: cs.primary.withAlpha(widget.isSelected ? 60 : 30),
                     blurRadius: 24,
-                    spreadRadius: 0,
                   ),
               ],
             ),
@@ -266,7 +265,7 @@ class _BrightnessToggle extends StatelessWidget {
                     duration: const Duration(milliseconds: 400),
                     switchInCurve: Curves.easeOutBack,
                     transitionBuilder: (child, anim) => RotationTransition(
-                      turns: Tween(begin: -0.25, end: 0.0).animate(anim),
+                      turns: Tween<double>(begin: -0.25, end: 0).animate(anim),
                       child: ScaleTransition(scale: anim, child: child),
                     ),
                     child: Icon(
@@ -297,7 +296,7 @@ class _BrightnessToggle extends StatelessWidget {
               ),
             ),
           ),
-        ));
+        ),);
   }
 }
 
@@ -348,7 +347,9 @@ class _LivePreviewPanel extends StatelessWidget {
                 ),
                 child: Text(
                   '${brandLabels[themeState.brandId] ?? themeState.brandId} · '
-                  '${themeState.brightness == Brightness.dark ? 'Dark' : 'Light'}',
+                  '${themeState.brightness == Brightness.dark 
+                      ? 'Dark' 
+                      : 'Light'}',
                   style: theme.textTheme.labelSmall?.copyWith(
                     color: cs.primary,
                     fontWeight: FontWeight.w600,

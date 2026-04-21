@@ -18,7 +18,6 @@ final class PortfolioBrandTheme implements DkBrandTheme {
     sm: BorderRadius.all(Radius.circular(8)),
     md: BorderRadius.all(Radius.circular(16)),
     lg: BorderRadius.all(Radius.circular(24)),
-    pill: BorderRadius.all(Radius.circular(999)),
   );
 
   static TextTheme _textTheme(Color display, Color body) {
@@ -32,7 +31,9 @@ final class PortfolioBrandTheme implements DkBrandTheme {
       displayMedium: base.displayMedium?.copyWith(fontWeight: FontWeight.w700),
       displaySmall: base.displaySmall?.copyWith(fontWeight: FontWeight.w600),
       headlineLarge: base.headlineLarge?.copyWith(fontWeight: FontWeight.w600),
-      headlineMedium: base.headlineMedium?.copyWith(fontWeight: FontWeight.w600),
+      headlineMedium: base.headlineMedium?.copyWith(
+        fontWeight: FontWeight.w600,
+      ),
       headlineSmall: base.headlineSmall?.copyWith(fontWeight: FontWeight.w500),
       labelLarge: base.labelLarge?.copyWith(fontWeight: FontWeight.w600),
     );

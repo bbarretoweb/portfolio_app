@@ -35,8 +35,9 @@ class _HomePageState extends ConsumerState<HomePage> {
 
   @override
   void dispose() {
-    _scrollController.removeListener(_scrollListener);
-    _scrollController.dispose();
+    _scrollController
+      ..removeListener(_scrollListener)
+      ..dispose();
     super.dispose();
   }
 
@@ -142,4 +143,3 @@ class _HomePageState extends ConsumerState<HomePage> {
     );
   }
 }
-

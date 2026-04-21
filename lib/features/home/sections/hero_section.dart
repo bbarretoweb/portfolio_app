@@ -196,7 +196,6 @@ class _DotGridPainter extends CustomPainter {
     if (mPos != null && !disableAnimations) {
       final glowPaint = Paint()
         ..shader = RadialGradient(
-          center: Alignment.center,
           radius: 0.3,
           colors: [
             color.withAlpha(10),
@@ -213,7 +212,7 @@ class _DotGridPainter extends CustomPainter {
     // 2. Render Responsive Dots
     for (double x = 0; x < size.width; x += spacing) {
       for (double y = 0; y < size.height; y += spacing) {
-        Offset dotPos = Offset(x, y);
+        var dotPos = Offset(x, y);
 
         // Calculate magnetic repulsion with Cascade (Quadratic) Falloff
         if (mPos != null && !disableAnimations) {

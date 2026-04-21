@@ -5,6 +5,7 @@ import 'package:portfolio_app/shared/widgets/app_shell.dart';
 
 /// Named route constants.
 abstract final class AppRoutes {
+  /// The home route path.
   static const home = '/';
 }
 

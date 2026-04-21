@@ -18,7 +18,8 @@ class NavigationNotifier extends Notifier<void> {
   /// Returns the GlobalKey associated with a section ID.
   GlobalKey? getKey(String id) => _keys[id];
 
-  /// Scrolls to the specified section with a smooth animation and header offset.
+  /// Scrolls to the specified section with a smooth animation and
+  /// header offset.
   void scrollTo(String id, {double headerOffset = 64.0}) {
     final key = _keys[id];
     if (key == null) return;

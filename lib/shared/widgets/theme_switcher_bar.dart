@@ -102,7 +102,7 @@ class _ThemeToggleIconState extends State<_ThemeToggleIcon> {
                 color: widget.color.withAlpha(60),
                 blurRadius: 16,
                 spreadRadius: 2,
-              )
+              ),
           ],
         ),
         child: IconButton(
@@ -116,7 +116,7 @@ class _ThemeToggleIconState extends State<_ThemeToggleIcon> {
             transitionBuilder: (child, animation) {
               // Create a delightful spinning morph effect
               return RotationTransition(
-                turns: Tween<double>(begin: -0.5, end: 0.0).animate(animation),
+                turns: Tween<double>(begin: -0.5, end: 0).animate(animation),
                 child: ScaleTransition(
                   scale: animation,
                   child: child,

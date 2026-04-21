@@ -40,7 +40,6 @@ class _AboutSectionState extends State<AboutSection> {
               const DkSectionHeader(
                 title: 'About Me',
                 subtitle: 'Who I am',
-                showDivider: true,
               ),
               const SizedBox(height: 40),
               DkGrid(
@@ -61,12 +60,14 @@ class _AboutSectionState extends State<AboutSection> {
                               BorderRadius.circular(16),
                     ),
                     child: Text(
-                      'Flutter Developer with 6 years of expertise, specialized in '
-                      'high-quality mobile & web solutions. Experienced in '
-                      'electric mobility, container terminals and public sector systems.\n\n'
+                      'Flutter Developer with 6 years of expertise, specialized'
+                      ' in high-quality mobile & web solutions. Experienced '
+                      'electric mobility, container terminals and public '
+                      'sector systems.\n\n'
                       'I architect clean, scalable cross-platform apps with '
                       'explicit dependency injection, delivering premium '
-                      'interfaces that create real value for complex operations.',
+                      'interfaces that create real value for complex '
+                      'operations.',
                       style: theme.textTheme.bodyLarge,
                     ),
                   ),
@@ -99,8 +100,8 @@ class _AboutSectionState extends State<AboutSection> {
                 ],
               ),
               const SizedBox(height: 64),
-              DkDivider(
-                label: const Text('Tech Stack'),
+              const DkDivider(
+                label: Text('Tech Stack'),
                 indent: 0,
                 endIndent: 0,
               ),
@@ -312,7 +313,6 @@ class _GlossyPainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     final paint = Paint()
       ..shader = RadialGradient(
-        center: Alignment.center,
         radius: 0.8,
         colors: [
           color.withAlpha(40),
@@ -344,7 +344,7 @@ class _ProfileAvatarState extends State<_ProfileAvatar> {
     final disableAnimations = MediaQuery.disableAnimationsOf(context);
 
     // Color matrix for grayscale
-    const List<double> grayscaleMatrix = <double>[
+    const grayscaleMatrix = <double>[
       0.2126,
       0.7152,
       0.0722,
@@ -368,7 +368,7 @@ class _ProfileAvatarState extends State<_ProfileAvatar> {
     ];
 
     // Identity matrix (full color)
-    const List<double> colorMatrix = <double>[
+    const colorMatrix = <double>[
       1,
       0,
       0,
@@ -400,7 +400,7 @@ class _ProfileAvatarState extends State<_ProfileAvatar> {
         onEnter: (_) => setState(() => _isHovering = true),
         onExit: (_) => setState(() => _isHovering = false),
         child: TweenAnimationBuilder<double>(
-          tween: Tween(begin: 0.0, end: widget.isVisible ? 1.0 : 0.0),
+          tween: Tween(begin: 0, end: widget.isVisible ? 1.0 : 0.0),
           duration: disableAnimations
               ? Duration.zero
               : const Duration(milliseconds: 1000),
@@ -442,7 +442,6 @@ class _ProfileAvatarState extends State<_ProfileAvatar> {
                     width: 300,
                     height: 300,
                     fit: BoxFit.cover,
-                    filterQuality: FilterQuality.medium,
                   ),
                 );
               },
@@ -454,7 +453,9 @@ class _ProfileAvatarState extends State<_ProfileAvatar> {
   }
 }
 
+/// A tween for interpolating between two color matrix lists.
 class ColorMatrixTween extends Tween<List<double>> {
+  /// Creates a [ColorMatrixTween].
   ColorMatrixTween({required super.begin, required super.end});
 
   @override

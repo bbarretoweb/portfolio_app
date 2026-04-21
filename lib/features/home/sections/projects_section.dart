@@ -18,7 +18,8 @@ const _projects = [
     title: 'Coming Soon',
     subtitle: 'Next Big Thing',
     description:
-        'Currently working on a secret project involving game engines and 3D rendering.',
+        'Currently working on a secret project involving game engines '
+        'and 3D rendering.',
     tags: ['Secret', '3D'],
     imageLabel: 'Placeholder',
     isPlaceholder: true,
@@ -29,7 +30,8 @@ const _projects = [
     subtitle: 'This very app',
     description:
         'A modern Flutter portfolio with live brand and brightness switching, '
-        'fluid scroll animations, and a full component showcase — built on design_kit.',
+        'fluid scroll animations, and a full component showcase — built '
+        'on design_kit.',
     tags: ['Dart 3+', 'Flutter 3.20'],
     imageLabel: 'Portfolio app hero screenshot',
   ),
@@ -39,7 +41,8 @@ const _projects = [
     title: 'Coming Soon',
     subtitle: 'Next Big Thing',
     description:
-        'Currently working on a secret project involving game engines and 3D rendering.',
+        'Currently working on a secret project involving game engines '
+        'and 3D rendering.',
     tags: ['Secret', '3D'],
     imageLabel: 'Placeholder',
     isPlaceholder: true,
@@ -87,12 +90,11 @@ class _ProjectsSectionState extends State<ProjectsSection> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 32),
+          const Padding(
+            padding: EdgeInsets.symmetric(horizontal: 32),
             child: DkSectionHeader(
               title: 'Projects',
               subtitle: 'My Work',
-              showDivider: true,
             ),
           ),
           const SizedBox(height: 40),
@@ -121,7 +123,8 @@ class _ProjectsSectionState extends State<ProjectsSection> {
                         const SizedBox(width: 32),
                     itemBuilder: (context, index) {
                       final screenWidth = MediaQuery.sizeOf(context).width;
-                      // Max width of 600 for cards so they don't stretch in ultrawide
+                      // Max width of 600 for cards so they don't stretch in 
+                      // ultrawide
                       final cardWidth =
                           screenWidth > 800 ? 550.0 : screenWidth * 0.85;
 
@@ -179,13 +182,13 @@ class _ParallaxProjectCardState extends State<_ParallaxProjectCard> {
         transform: Matrix4.diagonal3Values(
           _hovered ? 1.02 : 1.0,
           _hovered ? 1.02 : 1.0,
-          1.0,
+          1,
         ),
         transformAlignment: Alignment.center,
         child: AnimatedBuilder(
           animation: widget.scrollController,
           builder: (context, child) {
-            double alignmentX = 0.0;
+            double alignmentX = 0;
 
             if (widget.scrollController.hasClients &&
                 _cardKey.currentContext != null) {
@@ -202,8 +205,9 @@ class _ParallaxProjectCardState extends State<_ParallaxProjectCard> {
                 final difference =
                     (cardCenter - screenWidth / 2) / (screenWidth / 2);
 
-                // Lógica: Conforme o card se move de -1 a 1 na tela, o Alignment.x vai de -0.5 a 0.5.
-                alignmentX = (difference * 0.5).clamp(-1.0, 1.0);
+                // Lógica: Conforme o card se move de -1 a 1 na tela, o 
+                // Alignment.x vai de -0.5 a 0.5.
+                alignmentX = (difference * 0.5).clamp(-1, 1);
               }
             }
 
@@ -215,12 +219,13 @@ class _ParallaxProjectCardState extends State<_ParallaxProjectCard> {
               subtitle: widget.project.subtitle,
               description: widget.project.description,
               tags: widget.project.tags.map((t) => DkTag(label: t)).toList(),
-              // callToAction: DkButton.outlined(label: const Text('Case Study')),
+              // callToAction: DkButton.outlined(
+              //   label: const Text('Case Study'),
+              // ),
               onPressed: () {
                 DkSnackbar.show(
                   context: context,
                   message: '📂 Opening ${widget.project.title}…',
-                  variant: DkSnackbarVariant.info,
                 );
               },
             );
@@ -233,7 +238,7 @@ class _ParallaxProjectCardState extends State<_ParallaxProjectCard> {
   Widget _buildSkeleton(BuildContext context) {
     final theme = Theme.of(context);
     return TweenAnimationBuilder<double>(
-      tween: Tween(begin: 0.5, end: 1.0),
+      tween: Tween(begin: 0.5, end: 1),
       duration: const Duration(milliseconds: 1500),
       curve: Curves.easeInOutSine,
       builder: (context, val, _) {
@@ -244,7 +249,7 @@ class _ParallaxProjectCardState extends State<_ParallaxProjectCard> {
             color: theme.colorScheme.surface,
             borderRadius: BorderRadius.circular(24),
             border: Border.all(
-                color: theme.colorScheme.outlineVariant.withAlpha(50)),
+                color: theme.colorScheme.outlineVariant.withAlpha(50),),
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -270,12 +275,12 @@ class _ParallaxProjectCardState extends State<_ParallaxProjectCard> {
                     Container(
                         height: 16,
                         width: double.infinity,
-                        color: shimmerColor),
+                        color: shimmerColor,),
                     const SizedBox(height: 8),
                     Container(
                         height: 16,
                         width: double.infinity,
-                        color: shimmerColor),
+                        color: shimmerColor,),
                     const SizedBox(height: 8),
                     Container(height: 16, width: 200, color: shimmerColor),
                   ],
@@ -287,7 +292,8 @@ class _ParallaxProjectCardState extends State<_ParallaxProjectCard> {
       },
       onEnd: () {
         // Reverse animation trick in stateful widgets requires more logic,
-        // for simplicity we use a looping approach or just a slow one-way that looks good.
+        // for simplicity we use a looping approach or just a slow one-way 
+        // that looks good.
         // In a real scenario we could use an AnimationController on repeat.
       },
     );

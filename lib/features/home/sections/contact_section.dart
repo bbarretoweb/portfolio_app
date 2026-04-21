@@ -26,7 +26,7 @@ class _ContactSectionState extends State<ContactSection> {
   void _submit() {
     DkSnackbar.show(
       context: context,
-      message: '✅ Message sent! I\'ll be in touch shortly.',
+      message: "✅ Message sent! I'll be in touch shortly.",
       variant: DkSnackbarVariant.success,
     );
     _nameController.clear();
@@ -43,12 +43,10 @@ class _ContactSectionState extends State<ContactSection> {
       color: colorScheme.surfaceContainerHighest.withAlpha(20),
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 80),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           const DkSectionHeader(
             title: 'Get In Touch',
             subtitle: 'Contact',
-            showDivider: true,
             alignment: CrossAxisAlignment.center,
           ),
           const SizedBox(height: 56),
@@ -76,7 +74,7 @@ class _ContactSectionState extends State<ContactSection> {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   Text(
-                    'Let\'s build something amazing together.',
+                    "Let's build something amazing together.",
                     textAlign: TextAlign.center,
                     style: theme.textTheme.titleMedium?.copyWith(
                       color: colorScheme.onSurfaceVariant,
@@ -109,7 +107,7 @@ class _ContactSectionState extends State<ContactSection> {
             ),
           ),
           const SizedBox(height: 64),
-          DkDivider(label: Text('Connect'), indent: 64, endIndent: 64),
+          const DkDivider(label: Text('Connect'), indent: 64, endIndent: 64),
           const SizedBox(height: 32),
           // Social links centered
           Wrap(

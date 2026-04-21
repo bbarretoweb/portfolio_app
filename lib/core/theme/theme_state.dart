@@ -8,7 +8,7 @@ final class ThemeState {
     this.brightness = Brightness.dark,
   });
 
-  /// The key in [brandRegistry] that identifies the active brand.
+  /// The identifier for the active brand configuration.
   final String brandId;
 
   /// Whether the UI uses [Brightness.light] or [Brightness.dark].

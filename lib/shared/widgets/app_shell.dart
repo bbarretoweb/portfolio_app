@@ -3,6 +3,7 @@ import 'package:design_kit/design_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:portfolio_app/core/navigation/navigation_provider.dart';
+import 'package:portfolio_app/features/home/home_page.dart' show HomePage;
 import 'package:portfolio_app/shared/widgets/max_width_box.dart';
 import 'package:portfolio_app/shared/widgets/theme_switcher_bar.dart';
 
@@ -69,7 +70,7 @@ class AppShell extends ConsumerWidget {
                                           .textTheme
                                           .titleMedium
                                           ?.copyWith(
-                                              fontWeight: FontWeight.bold),
+                                              fontWeight: FontWeight.bold,),
                                     ),
                                   ],
                                 ],
@@ -99,7 +100,7 @@ class AppShell extends ConsumerWidget {
                                   borderRadius: BorderRadius.circular(16),
                                 ),
                                 position: PopupMenuPosition.under,
-                                onSelected: (id) => nav.scrollTo(id),
+                                onSelected: nav.scrollTo,
                                 itemBuilder: (context) => [
                                   const PopupMenuItem(
                                     value: 'showcase',
