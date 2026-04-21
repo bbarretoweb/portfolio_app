@@ -61,13 +61,12 @@ class _AboutSectionState extends State<AboutSection> {
                               BorderRadius.circular(16),
                     ),
                     child: Text(
-                      'Senior Flutter Engineer based in Europe, specialized in '
-                      'design systems, performance optimization, and accessible '
-                      'mobile experiences.\n\n'
-                      'I build components that adhere to EAA / WCAG 2.1 AA '
-                      'standards, architect clean packages with explicit dependency '
-                      'injection, and obsess over the details that make an interface '
-                      'feel truly premium.',
+                      'Flutter Developer with 6 years of expertise, specialized in '
+                      'high-quality mobile & web solutions. Experienced in '
+                      'electric mobility, container terminals and public sector systems.\n\n'
+                      'I architect clean, scalable cross-platform apps with '
+                      'explicit dependency injection, delivering premium '
+                      'interfaces that create real value for complex operations.',
                       style: theme.textTheme.bodyLarge,
                     ),
                   ),
@@ -83,16 +82,16 @@ class _AboutSectionState extends State<AboutSection> {
                       ),
                       const SizedBox(height: 16),
                       _AnimatedStatCard(
-                        label: 'Apps Shipped',
-                        targetValue: 20,
+                        label: 'API Integrations',
+                        targetValue: 5,
                         suffix: '+',
                         isVisible: _isVisible,
                       ),
                       const SizedBox(height: 16),
                       _AnimatedStatCard(
-                        label: 'Design Systems Built',
-                        targetValue: 4,
-                        suffix: '',
+                        label: 'UI Components',
+                        targetValue: 40,
+                        suffix: '+',
                         isVisible: _isVisible,
                       ),
                     ],
@@ -100,89 +99,89 @@ class _AboutSectionState extends State<AboutSection> {
                 ],
               ),
               const SizedBox(height: 64),
+              DkDivider(
+                label: const Text('Tech Stack'),
+                indent: 0,
+                endIndent: 0,
+              ),
+              const SizedBox(height: 32),
               Center(
-                child: Column(
+                child: Wrap(
+                  spacing: 12,
+                  runSpacing: 12,
+                  alignment: WrapAlignment.center,
                   children: [
-                    const DkDivider(label: Text('Tech Stack')),
-                    const SizedBox(height: 32),
-                    Wrap(
-                      spacing: 12,
-                      runSpacing: 12,
-                      alignment: WrapAlignment.center,
-                      children: [
-                        DkTag(
-                          label: 'Flutter',
-                          icon: SvgPicture.string(
-                            BrandIcons.flutter,
-                            width: 16,
-                            height: 16,
-                            colorFilter: ColorFilter.mode(
-                              theme.colorScheme.onPrimaryContainer,
-                              BlendMode.srcIn,
-                            ),
-                          ),
+                    DkTag(
+                      label: 'Flutter',
+                      icon: SvgPicture.string(
+                        BrandIcons.flutter,
+                        width: 16,
+                        height: 16,
+                        colorFilter: ColorFilter.mode(
+                          theme.colorScheme.onPrimaryContainer,
+                          BlendMode.srcIn,
                         ),
-                        DkTag(
-                          label: 'Dart 3+',
-                          icon: SvgPicture.string(
-                            BrandIcons.dart,
-                            width: 16,
-                            height: 16,
-                            colorFilter: ColorFilter.mode(
-                              theme.colorScheme.onPrimaryContainer,
-                              BlendMode.srcIn,
-                            ),
-                          ),
+                      ),
+                    ),
+                    DkTag(
+                      label: 'Dart 3+',
+                      icon: SvgPicture.string(
+                        BrandIcons.dart,
+                        width: 16,
+                        height: 16,
+                        colorFilter: ColorFilter.mode(
+                          theme.colorScheme.onPrimaryContainer,
+                          BlendMode.srcIn,
                         ),
-                        const DkTag(
-                          label: 'Riverpod',
-                          icon: Icon(Icons.water_drop_rounded, size: 16),
+                      ),
+                    ),
+                    const DkTag(
+                      label: 'Riverpod',
+                      icon: Icon(Icons.water_drop_rounded, size: 16),
+                    ),
+                    const DkTag(
+                      label: 'go_router',
+                      icon: Icon(Icons.alt_route_rounded, size: 16),
+                    ),
+                    const DkTag(
+                      label: 'WCAG 2.1 AA',
+                      icon: Icon(Icons.accessibility_new_rounded, size: 16),
+                    ),
+                    const DkTag(
+                      label: 'CI/CD',
+                      icon: Icon(Icons.loop_rounded, size: 16),
+                    ),
+                    DkTag(
+                      label: 'Firebase',
+                      icon: SvgPicture.string(
+                        BrandIcons.firebase,
+                        width: 16,
+                        height: 16,
+                        colorFilter: ColorFilter.mode(
+                          theme.colorScheme.onPrimaryContainer,
+                          BlendMode.srcIn,
                         ),
-                        const DkTag(
-                          label: 'go_router',
-                          icon: Icon(Icons.alt_route_rounded, size: 16),
+                      ),
+                    ),
+                    DkTag(
+                      label: 'REST / GraphQL',
+                      icon: SvgPicture.string(
+                        BrandIcons.graphql,
+                        width: 16,
+                        height: 16,
+                        colorFilter: ColorFilter.mode(
+                          theme.colorScheme.onPrimaryContainer,
+                          BlendMode.srcIn,
                         ),
-                        const DkTag(
-                          label: 'WCAG 2.1 AA',
-                          icon: Icon(Icons.accessibility_new_rounded, size: 16),
-                        ),
-                        const DkTag(
-                          label: 'CI/CD',
-                          icon: Icon(Icons.loop_rounded, size: 16),
-                        ),
-                        DkTag(
-                          label: 'Firebase',
-                          icon: SvgPicture.string(
-                            BrandIcons.firebase,
-                            width: 16,
-                            height: 16,
-                            colorFilter: ColorFilter.mode(
-                              theme.colorScheme.onPrimaryContainer,
-                              BlendMode.srcIn,
-                            ),
-                          ),
-                        ),
-                        DkTag(
-                          label: 'REST / GraphQL',
-                          icon: SvgPicture.string(
-                            BrandIcons.graphql,
-                            width: 16,
-                            height: 16,
-                            colorFilter: ColorFilter.mode(
-                              theme.colorScheme.onPrimaryContainer,
-                              BlendMode.srcIn,
-                            ),
-                          ),
-                        ),
-                        const DkTag(
-                          label: 'Design Systems',
-                          icon: Icon(Icons.category_rounded, size: 16),
-                        ),
-                        const DkTag(
-                          label: 'Unit & Golden Tests',
-                          icon: Icon(Icons.fact_check_rounded, size: 16),
-                        ),
-                      ],
+                      ),
+                    ),
+                    const DkTag(
+                      label: 'Design Systems',
+                      icon: Icon(Icons.category_rounded, size: 16),
+                    ),
+                    const DkTag(
+                      label: 'Unit & Golden Tests',
+                      icon: Icon(Icons.fact_check_rounded, size: 16),
                     ),
                   ],
                 ),
@@ -434,14 +433,14 @@ class _ProfileAvatarState extends State<_ProfileAvatar> {
                 begin: grayscaleMatrix,
                 end: showColor ? colorMatrix : grayscaleMatrix,
               ),
-              duration: const Duration(milliseconds: 1000),
+              duration: const Duration(seconds: 5),
               builder: (context, matrix, child) {
                 return ColorFiltered(
                   colorFilter: ColorFilter.matrix(matrix),
                   child: Image.asset(
                     'assets/images/meSmiling.jpg',
-                    width: 220,
-                    height: 220,
+                    width: 300,
+                    height: 300,
                     fit: BoxFit.cover,
                     filterQuality: FilterQuality.medium,
                   ),

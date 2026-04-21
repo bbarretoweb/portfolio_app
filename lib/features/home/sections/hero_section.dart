@@ -142,8 +142,8 @@ class _HeroSectionState extends ConsumerState<HeroSection> {
         ),
         const SizedBox(height: 16),
         Text(
-          'I craft pixel-perfect, accessible Flutter experiences\n'
-          'and build scalable design systems for the European market.',
+          'I develop scalable, accessible Flutter solutions\n'
+          'driven by clean architecture and high-quality experiences.',
           style: theme.textTheme.bodyLarge,
         ),
         const SizedBox(height: 32),

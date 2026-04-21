@@ -109,7 +109,7 @@ class _ContactSectionState extends State<ContactSection> {
             ),
           ),
           const SizedBox(height: 64),
-          DkDivider(label: Text('Connect')),
+          DkDivider(label: Text('Connect'), indent: 64, endIndent: 64),
           const SizedBox(height: 32),
           // Social links centered
           Wrap(
