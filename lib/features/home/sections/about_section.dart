@@ -2,6 +2,7 @@ import 'dart:ui';
 import 'package:design_kit/design_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:portfolio_app/shared/utils/app_assets.dart';
 import 'package:portfolio_app/shared/utils/brand_icons.dart';
 import 'package:portfolio_app/shared/widgets/max_width_box.dart';
 import 'package:visibility_detector/visibility_detector.dart';
@@ -437,8 +438,11 @@ class _ProfileAvatarState extends State<_ProfileAvatar> {
               builder: (context, matrix, child) {
                 return ColorFiltered(
                   colorFilter: ColorFilter.matrix(matrix),
-                  child: Image.asset(
-                    'assets/images/meSmiling.jpg',
+                  child: const Image(
+                    image: ResizeImage(
+                      AssetImage(AppAssets.meSmiling),
+                      width: 800,
+                    ),
                     width: 300,
                     height: 300,
                     fit: BoxFit.cover,

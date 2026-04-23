@@ -4,7 +4,7 @@ import 'package:design_kit/design_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:portfolio_app/core/navigation/navigation_provider.dart';
-
+import 'package:portfolio_app/shared/utils/app_assets.dart';
 import 'package:portfolio_app/shared/widgets/max_width_box.dart';
 
 /// Full-viewport hero section with a cycling role headline.
@@ -110,9 +110,11 @@ class _HeroSectionState extends ConsumerState<HeroSection> {
         ),
         child: ClipOval(
           child: Image.asset(
-            'assets/images/meHD.png',
+            AppAssets.meHD,
             width: 160,
             height: 160,
+            cacheWidth: 320,
+            cacheHeight: 320,
             fit: BoxFit.cover,
           ),
         ),

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:portfolio_app/core/navigation/navigation_provider.dart';
 import 'package:portfolio_app/features/home/home_page.dart' show HomePage;
+import 'package:portfolio_app/shared/utils/app_assets.dart';
 import 'package:portfolio_app/shared/widgets/max_width_box.dart';
 import 'package:portfolio_app/shared/widgets/theme_switcher_bar.dart';
 
@@ -58,7 +59,7 @@ class AppShell extends ConsumerWidget {
                                   const DkAvatar(
                                     size: DkAvatarSize.sm,
                                     imageProvider: AssetImage(
-                                      'assets/images/meHD.png',
+                                      AppAssets.meHD,
                                     ),
                                     semanticLabel: 'Bruno',
                                   ),
@@ -70,7 +71,8 @@ class AppShell extends ConsumerWidget {
                                           .textTheme
                                           .titleMedium
                                           ?.copyWith(
-                                              fontWeight: FontWeight.bold,),
+                                            fontWeight: FontWeight.bold,
+                                          ),
                                     ),
                                   ],
                                 ],

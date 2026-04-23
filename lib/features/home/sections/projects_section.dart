@@ -1,10 +1,14 @@
 import 'package:design_kit/design_kit.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:portfolio_app/shared/utils/app_assets.dart';
 
 const _projects = [
   _Project(
-    image: AssetImage('assets/images/design_kit_sml.png'),
+    image: ResizeImage(
+      AssetImage(AppAssets.designKitThumbnail),
+      width: 1100,
+    ),
     title: 'Design kit',
     subtitle: 'Component Library',
     description:
@@ -17,15 +21,17 @@ const _projects = [
     image: NetworkImage(''),
     title: 'Coming Soon',
     subtitle: 'Next Big Thing',
-    description:
-        'Currently working on a secret project involving game engines '
+    description: 'Currently working on a secret project involving game engines '
         'and 3D rendering.',
     tags: ['Secret', '3D'],
     imageLabel: 'Placeholder',
     isPlaceholder: true,
   ),
   _Project(
-    image: AssetImage('assets/images/portfolio.png'),
+    image: ResizeImage(
+      AssetImage(AppAssets.portfolioThumbnail),
+      width: 1100,
+    ),
     title: 'Portfolio App',
     subtitle: 'This very app',
     description:
@@ -40,8 +46,7 @@ const _projects = [
     image: NetworkImage(''),
     title: 'Coming Soon',
     subtitle: 'Next Big Thing',
-    description:
-        'Currently working on a secret project involving game engines '
+    description: 'Currently working on a secret project involving game engines '
         'and 3D rendering.',
     tags: ['Secret', '3D'],
     imageLabel: 'Placeholder',
@@ -123,7 +128,7 @@ class _ProjectsSectionState extends State<ProjectsSection> {
                         const SizedBox(width: 32),
                     itemBuilder: (context, index) {
                       final screenWidth = MediaQuery.sizeOf(context).width;
-                      // Max width of 600 for cards so they don't stretch in 
+                      // Max width of 600 for cards so they don't stretch in
                       // ultrawide
                       final cardWidth =
                           screenWidth > 800 ? 550.0 : screenWidth * 0.85;
@@ -205,7 +210,7 @@ class _ParallaxProjectCardState extends State<_ParallaxProjectCard> {
                 final difference =
                     (cardCenter - screenWidth / 2) / (screenWidth / 2);
 
-                // Lógica: Conforme o card se move de -1 a 1 na tela, o 
+                // Lógica: Conforme o card se move de -1 a 1 na tela, o
                 // Alignment.x vai de -0.5 a 0.5.
                 alignmentX = (difference * 0.5).clamp(-1, 1);
               }
@@ -249,7 +254,8 @@ class _ParallaxProjectCardState extends State<_ParallaxProjectCard> {
             color: theme.colorScheme.surface,
             borderRadius: BorderRadius.circular(24),
             border: Border.all(
-                color: theme.colorScheme.outlineVariant.withAlpha(50),),
+              color: theme.colorScheme.outlineVariant.withAlpha(50),
+            ),
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -273,14 +279,16 @@ class _ParallaxProjectCardState extends State<_ParallaxProjectCard> {
                     Container(height: 16, width: 100, color: shimmerColor),
                     const SizedBox(height: 24),
                     Container(
-                        height: 16,
-                        width: double.infinity,
-                        color: shimmerColor,),
+                      height: 16,
+                      width: double.infinity,
+                      color: shimmerColor,
+                    ),
                     const SizedBox(height: 8),
                     Container(
-                        height: 16,
-                        width: double.infinity,
-                        color: shimmerColor,),
+                      height: 16,
+                      width: double.infinity,
+                      color: shimmerColor,
+                    ),
                     const SizedBox(height: 8),
                     Container(height: 16, width: 200, color: shimmerColor),
                   ],
@@ -292,7 +300,7 @@ class _ParallaxProjectCardState extends State<_ParallaxProjectCard> {
       },
       onEnd: () {
         // Reverse animation trick in stateful widgets requires more logic,
-        // for simplicity we use a looping approach or just a slow one-way 
+        // for simplicity we use a looping approach or just a slow one-way
         // that looks good.
         // In a real scenario we could use an AnimationController on repeat.
       },
