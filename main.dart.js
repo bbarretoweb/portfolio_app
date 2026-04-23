@@ -96429,7 +96429,7 @@ return s+"["+this.b+".."+A.k(r===9007199254740991?"*":r)+"]"}}
 A.aip.prototype={}
 A.N5.prototype={
 pb(a,b){var s=b.xM($.aVf(),t.we)
-return new A.wL($.aVg(),"Bruno \u2014 Flutter Engineer",s,!1,null)}}
+return new A.wL($.aVg(),"Barreto \u2014 Software Engineer",s,!1,null)}}
 A.mS.prototype={
 On(a,b){var s,r,q,p,o,n,m=this.c.i(0,a)
 if(m==null)return
@@ -97118,7 +97118,7 @@ o=A.ad(150,o.v()>>>16&255,o.v()>>>8&255,o.v()&255)
 s=A.L(a).ch.br(40)
 return A.aHA(new A.Sc(A.Od(A.aG5(A.cS(r,A.Tz(!1,new A.rU(new A.cm(B.kl,A.D7(new A.a6e(q)),r),r),!0),B.p,r,r,new A.bX(o,r,new A.dx(B.q,B.q,new A.aJ(s,1,B.r,-1),B.q),r,r,r,B.a4),r,r,r,r,r,r,r),!0,p),B.R,r),B.W5,r),this.e,!0)}}
 A.a6e.prototype={
-$2(a,b){var s,r=null,q=this.a,p=t.p,o=A.b([B.Jq],p),n=!(b.b<600)
+$2(a,b){var s,r=null,q=this.a,p=t.p,o=A.b([B.Jp],p),n=!(b.b<600)
 if(n){s=A.L(a).ok.w
 B.b.E(o,A.b([B.Bb,A.cb("Bruno Barreto",r,r,r,r,s==null?r:s.nz(B.aH),r,r)],p))}o=A.b([A.wq(!1,r,!0,A.hQ(o,B.W,B.M,B.a6,0),r,!0,r,r,r,r,r,new A.a69(),r,new A.a6a(q),r,r,r,r,r,r),B.mi],p)
 if(n)B.b.E(o,A.b([A.Gp(B.BV,new A.a6b(q),r),B.dz,A.Gp(B.BX,new A.a6c(q),r),B.Wh],p))
@@ -104996,9 +104996,9 @@ B.Jm=new A.jE(4,"up")
 B.oW=new A.jE(5,"down")
 B.oX=new A.jE(6,"none")
 B.Jn=new A.vU(null,null,null,null,null,null)
-B.CQ=new A.m4("assets/images/meHD.webp",null,null)
+B.CQ=new A.m4("assets/images/logo_b_with_background.webp",null,null)
 B.oY=new A.P6(0,"sm")
-B.Jq=new A.vV(B.CQ,B.oY,"Bruno",null)
+B.Jp=new A.vV(B.CQ,B.oY,"Bruno",null)
 B.oZ=new A.BL(0,"filter")
 B.Jv=new A.BL(1,"input")
 B.a5b=new A.BL(2,"suggestion")
@@ -107994,8 +107994,8 @@ B.Jr=new A.vV(B.RD,B.oY,"Small avatar",null)
 B.a3o=new A.e1("DkAvatar.sm",B.Jr,null)
 B.RE=new A.p0("https://picsum.photos/seed/av1/120/120")
 B.Jo=new A.P6(2,"lg")
-B.Jp=new A.vV(B.RE,B.Jo,"Large avatar",null)
-B.a3s=new A.e1("DkAvatar.lg",B.Jp,null)
+B.Jq=new A.vV(B.RE,B.Jo,"Large avatar",null)
+B.a3s=new A.e1("DkAvatar.lg",B.Jq,null)
 B.O5=s([B.a3o,B.a3s],t.p)
 B.a3a=new A.yK(B.aT,16,16,B.b9,B.O5,null)
 B.a4V=new A.nV("Avatars",B.a3a,null)
