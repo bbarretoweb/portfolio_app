@@ -16,7 +16,7 @@ class App extends ConsumerWidget {
     final themeData = ref.watch(activeThemeProvider);
 
     return MaterialApp.router(
-      title: 'Bruno — Flutter Engineer',
+      title: 'Barreto — Software Engineer',
       debugShowCheckedModeBanner: false,
       theme: themeData,
       routerConfig: appRouter,
