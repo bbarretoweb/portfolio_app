@@ -16,6 +16,9 @@ abstract final class AppAssets {
   /// Project thumbnail for the Portfolio App.
   static const String portfolioThumbnail = '$_basePath/portfolio.webp';
 
+  /// Project thumbnail for the Dev Tools.
+  static const String devToolsThumbnail = '$_basePath/dev_tools.webp';
+
   /// Fav icon.
   static const String favIcon = '$_basePath/fav_icon.webp';
 

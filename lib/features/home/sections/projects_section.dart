@@ -2,6 +2,7 @@ import 'package:design_kit/design_kit.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:portfolio_app/shared/utils/app_assets.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 const _projects = [
   _Project(
@@ -14,18 +15,9 @@ const _projects = [
     description:
         'A fully accessible, brand-agnostic Flutter design system built to EAA / WCAG 2.1 AA standards. '
         'Implements inversion of control for all theme and asset injection.',
-    tags: ['Flutter', 'Dart 3+'],
+    tags: ['Web', 'Mobile', 'Desktop', 'Material 3', ' WCAG 2.1 AA'],
     imageLabel: 'Screenshot of the design_kit component showcase',
-  ),
-  _Project(
-    image: NetworkImage(''),
-    title: 'Coming Soon',
-    subtitle: 'Next Big Thing',
-    description: 'Currently working on a secret project involving game engines '
-        'and 3D rendering.',
-    tags: ['Secret', '3D'],
-    imageLabel: 'Placeholder',
-    isPlaceholder: true,
+    url: 'https://github.com/bbarretoweb/design_kit',
   ),
   _Project(
     image: ResizeImage(
@@ -38,29 +30,21 @@ const _projects = [
         'A modern Flutter portfolio with live brand and brightness switching, '
         'fluid scroll animations, and a full component showcase — built '
         'on design_kit.',
-    tags: ['Dart 3+', 'Flutter 3.20'],
+    tags: ['go_router', 'flutter_riverpod', 'design_kit', 'GitHub CI/CD'],
     imageLabel: 'Portfolio app hero screenshot',
-  ),
-  // Placeholders
-  _Project(
-    image: NetworkImage(''),
-    title: 'Coming Soon',
-    subtitle: 'Next Big Thing',
-    description: 'Currently working on a secret project involving game engines '
-        'and 3D rendering.',
-    tags: ['Secret', '3D'],
-    imageLabel: 'Placeholder',
-    isPlaceholder: true,
+    url: 'https://github.com/bbarretoweb/portfolio_app',
   ),
   _Project(
-    image: NetworkImage(''),
-    title: 'Coming Soon',
-    subtitle: 'WIP',
-    description:
-        'Exploring WebAssembly and high-performance rust integrations.',
-    tags: ['WASM', 'Rust'],
-    imageLabel: 'Placeholder',
-    isPlaceholder: true,
+    image: ResizeImage(
+      AssetImage(AppAssets.devToolsThumbnail),
+      width: 1100,
+    ),
+    title: 'My Dev Tools',
+    subtitle: 'Set of tools for developers',
+    description: 'A helpful set of tools for developers',
+    tags: ['python', 'image optimization'],
+    imageLabel: 'Placeholder for dev tools screenshot',
+    url: 'https://github.com/bbarretoweb/my-dev-tools',
   ),
 ];
 
@@ -173,10 +157,6 @@ class _ParallaxProjectCardState extends State<_ParallaxProjectCard> {
 
   @override
   Widget build(BuildContext context) {
-    if (widget.project.isPlaceholder) {
-      return _buildSkeleton(context);
-    }
-
     return MouseRegion(
       onEnter: (_) => setState(() => _hovered = true),
       onExit: (_) => setState(() => _hovered = false),
@@ -227,82 +207,16 @@ class _ParallaxProjectCardState extends State<_ParallaxProjectCard> {
               // callToAction: DkButton.outlined(
               //   label: const Text('Case Study'),
               // ),
-              onPressed: () {
-                DkSnackbar.show(
-                  context: context,
-                  message: '📂 Opening ${widget.project.title}…',
-                );
+              onPressed: () async {
+                final uri = Uri.parse(widget.project.url);
+                if (await canLaunchUrl(uri)) {
+                  await launchUrl(uri);
+                }
               },
             );
           },
         ),
       ),
-    );
-  }
-
-  Widget _buildSkeleton(BuildContext context) {
-    final theme = Theme.of(context);
-    return TweenAnimationBuilder<double>(
-      tween: Tween(begin: 0.5, end: 1),
-      duration: const Duration(milliseconds: 1500),
-      curve: Curves.easeInOutSine,
-      builder: (context, val, _) {
-        final shimmerColor = theme.colorScheme.surfaceContainer;
-        return Container(
-          decoration: BoxDecoration(
-            color: theme.colorScheme.surfaceContainerHighest,
-            borderRadius: BorderRadius.circular(24),
-            border: Border.all(
-              color: theme.colorScheme.outlineVariant.withAlpha(50),
-            ),
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              // Image skeleton
-              Container(
-                height: 200,
-                decoration: BoxDecoration(
-                  color: shimmerColor,
-                  borderRadius:
-                      const BorderRadius.vertical(top: Radius.circular(24)),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(24),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Container(height: 24, width: 150, color: shimmerColor),
-                    const SizedBox(height: 12),
-                    Container(height: 16, width: 100, color: shimmerColor),
-                    const SizedBox(height: 24),
-                    Container(
-                      height: 16,
-                      width: double.infinity,
-                      color: shimmerColor,
-                    ),
-                    const SizedBox(height: 8),
-                    Container(
-                      height: 16,
-                      width: double.infinity,
-                      color: shimmerColor,
-                    ),
-                    const SizedBox(height: 8),
-                    Container(height: 16, width: 200, color: shimmerColor),
-                  ],
-                ),
-              ),
-            ],
-          ),
-        );
-      },
-      onEnd: () {
-        // Reverse animation trick in stateful widgets requires more logic,
-        // for simplicity we use a looping approach or just a slow one-way
-        // that looks good.
-        // In a real scenario we could use an AnimationController on repeat.
-      },
     );
   }
 }
@@ -315,7 +229,7 @@ final class _Project {
     required this.description,
     required this.tags,
     required this.imageLabel,
-    this.isPlaceholder = false,
+    required this.url,
   });
 
   final ImageProvider<Object> image;
@@ -324,5 +238,5 @@ final class _Project {
   final String description;
   final List<String> tags;
   final String imageLabel;
-  final bool isPlaceholder;
+  final String url;
 }
