@@ -1,46 +1,65 @@
-# Portfolio App - Flutter Design System Practice
+# Bruno Barreto — Software Developer Portfolio
 
-A Flutter application built as a practice project for working with **Flutter Design Systems** and **Material 3**.
+A production-ready, highly optimized Single Page Application (SPA) built with Flutter and Dart 3. This repository serves not only as my personal portfolio but as a live demonstration of scalable frontend architecture, accessibility compliance, and advanced UI engineering.
 
-## Features
+## 🏗 Architecture & Engineering
 
-- 🎨 **Material 3 Design**: Fully implemented with Material 3 components and theming.
-- 🏗️ **Design System**: Built on top of the `design_kit` package for consistent UI components.
-- 📱 **Responsive Layout**: Designed to work seamlessly on both mobile and desktop platforms.
-- 🌑 **Dark Theme**: Automatic theme switching support and consistent dark mode implementation.
-- 🎨 **Theme Preview**: Includes a dedicated `ThemeShowSection` to demonstrate all available Material 3 colors.
+This project is built with scalability and modularity in mind, separating the core business logic from the visual identity.
 
-## Getting Started
+### 1. Decoupled Design System (`design_kit`)
+The UI is strictly governed by a standalone, brand-agnostic design system package called `design_kit` (included as a submodule/dependency).
+*   **Inversion of Control**: The application injects the active brand theme (e.g., Portfolio, Acme, Biome) into the design kit. The components themselves have no knowledge of the host application.
+*   **European Accessibility Act (EAA) & WCAG 2.1 AA**: All components enforce strict accessibility standards. Hit targets are guaranteed to be at least 44x44 logical pixels, and full `Semantics` support is implemented for screen readers.
+*   **Responsive & Fluid**: The layout engine dynamically scales typography and component dimensions across Mobile, Tablet, and Desktop breakpoints.
+
+### 2. State & Navigation
+*   **Riverpod**: Manages global application state (such as active brand and brightness mode) with zero unnecessary rebuilds. UI-specific ephemeral state is intentionally kept within `setState` to prevent polluting the global scope.
+*   **GoRouter**: Handles complex SPA navigation, enabling direct deep-linking to specific sections while maintaining the persistent `AppShell` (the navigation bar).
+
+### 3. Performance & Rendering
+*   **60 FPS Animations**: Utilizes `RepaintBoundary` to isolate high-frequency repaints (e.g., the interactive dot-grid and parallax scroll effects) from static layouts.
+*   **Optimized Assets**: Heavy use of `ResizeImage` and cached network resources to minimize memory footprint and avoid layout shifts.
+
+### 4. Code Quality & Security
+*   **Strict Linting**: The entire codebase strictly adheres to the `very_good_analysis` ruleset. Zero warnings, zero "hacks".
+*   **Modern Dart 3**: Leverages the latest language features, including Switch Expressions and exhaustive pattern matching.
+*   **Secure Environment**: Integrates `flutter_dotenv` to securely manage API keys (e.g., the Formspree endpoint) without exposing secrets to the version control system.
+
+## ⚙️ Getting Started
 
 ### Prerequisites
+*   Flutter SDK `^3.24.0` (or latest stable)
+*   Dart SDK `^3.5.0`
 
-- Flutter SDK (version compatible with `design_kit` dependencies)
-- Dart SDK
+### Local Development
 
-### Installation
+1.  **Clone the repository** (Ensure the `design_kit` dependency path is accessible, or fetch it via git if configured):
+    ```bash
+    git clone https://github.com/bbarretoweb/portfolio_app.git
+    cd portfolio_app
+    ```
+2.  **Environment Variables**:
+    Create a `.env` file in the root directory and provide your Formspree ID to enable the contact form:
+    ```env
+    FORMSPREE_ENDPOINT=your_endpoint_id
+    ```
+3.  **Install dependencies**:
+    ```bash
+    flutter pub get
+    ```
+4.  **Run the application**:
+    ```bash
+    flutter run -d chrome
+    ```
 
-1. Clone the repository (or copy the project files).
-2. Open the project in your Flutter-compatible IDE (e.g., VS Code, Android Studio).
-3. Run `flutter pub get` in the terminal to fetch all dependencies.
-4. Run `flutter run` to launch the application.
+## 🚀 CI/CD Pipeline
 
-## Code Structure
+The project includes a fully automated GitHub Actions workflow (`deploy.yml`). 
+Upon pushing to the `master` branch, the pipeline:
+1. Provisions an Ubuntu runner with the latest Node.js/Flutter environments.
+2. Injects production secrets into the `.env` asset.
+3. Compiles the optimized Web release (`flutter build web --release`).
+4. Deploys the static bundle directly to GitHub Pages.
 
-- `lib/app.dart`: Main application entry point and theme configuration.
-- `lib/features/`: Contains the different sections of the portfolio.
-  - `home/`: Home screen widgets and section implementations.
-  - `home/sections/`: Reusable UI sections like `HeroSection`, `AboutSection`, `ContactSection`, etc.
-- `lib/features/home/sections/theme_show_section.dart`: A comprehensive section to preview all Material 3 colors and typography.
-- `lib/features/home/widgets/`: Shared widgets used across the home screen.
-- `design_kit/`: (Submodule/Local package) The custom design system library used by the application.
-
-## Technologies Used
-
-- **Flutter**: UI framework.
-- **Material 3**: Design system implementation.
-- **Riverpod**: State management (used in `ThemeShowSection` via `ChangeNotifierProvider`).
-- **design_kit**: Custom Flutter widget library.
-
-## Contributing
-
-This project is primarily used for practicing Flutter and design system development. Feel free to fork, experiment, and modify the code to learn more about Flutter widgets, theming, and responsive UI design.
+---
+*Designed and engineered by [Bruno Barreto](https://github.com/bbarretoweb).*
