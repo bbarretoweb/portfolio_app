@@ -16,7 +16,7 @@ class App extends ConsumerWidget {
     final themeData = ref.watch(activeThemeProvider);
 
     return MaterialApp.router(
-      title: 'Barreto — Software Engineer',
+      title: 'Barreto — Software Developer',
       debugShowCheckedModeBanner: false,
       theme: themeData,
       routerConfig: appRouter,

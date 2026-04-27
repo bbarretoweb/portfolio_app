@@ -247,11 +247,10 @@ class _ParallaxProjectCardState extends State<_ParallaxProjectCard> {
       duration: const Duration(milliseconds: 1500),
       curve: Curves.easeInOutSine,
       builder: (context, val, _) {
-        final shimmerColor = theme.colorScheme.surfaceContainerHighest
-            .withAlpha((val * 100).round());
+        final shimmerColor = theme.colorScheme.surfaceContainer;
         return Container(
           decoration: BoxDecoration(
-            color: theme.colorScheme.surface,
+            color: theme.colorScheme.surfaceContainerHighest,
             borderRadius: BorderRadius.circular(24),
             border: Border.all(
               color: theme.colorScheme.outlineVariant.withAlpha(50),

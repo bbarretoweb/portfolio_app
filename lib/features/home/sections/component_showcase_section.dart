@@ -54,7 +54,6 @@ class _ComponentShowcaseSectionState extends State<ComponentShowcaseSection>
                 subtitle: 'Design Kit in action',
               ),
               const SizedBox(height: 40),
-              
               if (!_isVisible)
                 const SizedBox(height: 400) // Placeholder for lazy rendering
               else ...[
@@ -82,7 +81,7 @@ class _ComponentShowcaseSectionState extends State<ComponentShowcaseSection>
                   ],
                 ),
                 const SizedBox(height: 40),
-                
+
                 // Content Gallery
                 AnimatedBuilder(
                   animation: _tabController,
@@ -124,7 +123,7 @@ class _ComponentPreview extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final radii = theme.extension<DkRadii>() ?? const DkRadii();
-    
+
     return Container(
       width: 320,
       decoration: BoxDecoration(
@@ -179,7 +178,9 @@ class _ActionsShowcase extends StatelessWidget {
           _ComponentPreview(
             className: 'DkButton.filled',
             child: DkButton.filled(
-                label: const Text('Filled'), onPressed: () {},),
+              label: const Text('Filled'),
+              onPressed: () {},
+            ),
           ),
           _ComponentPreview(
             className: 'DkButton.outlined',

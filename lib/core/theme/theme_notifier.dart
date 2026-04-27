@@ -8,14 +8,14 @@ import 'package:portfolio_app/core/theme/theme_state.dart';
 const Map<String, DkBrandTheme> brandRegistry = {
   'portfolio': PortfolioBrandTheme(),
   'acme': AcmeBrandTheme(),
-  'betacorp': BetaCorpBrandTheme(),
+  'biome': BiomeBrandTheme(),
 };
 
 /// Human-readable labels for the brand dropdown.
 const Map<String, String> brandLabels = {
-  'portfolio': "✦ Bruno's Brand",
-  'acme': '⬛ Acme Corp',
-  'betacorp': '◆ BetaCorp',
+  'portfolio': 'Standard',
+  'acme': 'Enterprise',
+  'biome': 'Biome',
 };
 
 /// Notifier that owns and mutates [ThemeState].
