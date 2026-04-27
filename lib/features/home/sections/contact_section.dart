@@ -1,5 +1,11 @@
+import 'dart:convert';
+
 import 'package:design_kit/design_kit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:http/http.dart' as http;
+import 'package:url_launcher/url_launcher.dart';
 
 /// Contact section with a form and social links.
 class ContactSection extends StatefulWidget {
@@ -11,9 +17,12 @@ class ContactSection extends StatefulWidget {
 }
 
 class _ContactSectionState extends State<ContactSection> {
+  final _formKey = GlobalKey<FormState>();
   final _nameController = TextEditingController();
   final _emailController = TextEditingController();
   final _messageController = TextEditingController();
+
+  bool _isLoading = false;
 
   @override
   void dispose() {
@@ -23,15 +32,89 @@ class _ContactSectionState extends State<ContactSection> {
     super.dispose();
   }
 
-  void _submit() {
-    DkSnackbar.show(
-      context: context,
-      message: "✅ Message sent! I'll be in touch shortly.",
-      variant: DkSnackbarVariant.success,
-    );
-    _nameController.clear();
-    _emailController.clear();
-    _messageController.clear();
+  Future<void> _launchURL(String url) async {
+    final uri = Uri.parse(url);
+    if (await canLaunchUrl(uri)) {
+      await launchUrl(uri);
+    } else {
+      if (mounted) {
+        DkSnackbar.show(
+          context: context,
+          message: '❌ Could not launch $url',
+          variant: DkSnackbarVariant.error,
+        );
+      }
+    }
+  }
+
+  Future<void> _submit() async {
+    if (!_formKey.currentState!.validate()) return;
+
+    setState(() => _isLoading = true);
+
+    final formspreeEndpointId = dotenv.env['FORMSPREE_ENDPOINT'];
+    if (formspreeEndpointId == null || formspreeEndpointId.trim().isEmpty) {
+      debugPrint(
+        '❌ Erro: FORMSPREE_ENDPOINT não está configurado no arquivo .env',
+      );
+      if (mounted) {
+        DkSnackbar.show(
+          context: context,
+          message: '❌ Configuração ausente. Verifique os logs.',
+          variant: DkSnackbarVariant.error,
+        );
+        setState(() => _isLoading = false);
+      }
+      return;
+    }
+
+    final url = Uri.parse('https://formspree.io/f/$formspreeEndpointId');
+
+    try {
+      final response = await http.post(
+        url,
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: jsonEncode({
+          'name': _nameController.text,
+          'email': _emailController.text,
+          'message': _messageController.text,
+        }),
+      );
+
+      if (mounted) {
+        if (response.statusCode == 200 || response.statusCode == 201) {
+          DkSnackbar.show(
+            context: context,
+            message: "✅ Message sent! I'll be in touch shortly.",
+            variant: DkSnackbarVariant.success,
+          );
+          _nameController.clear();
+          _emailController.clear();
+          _messageController.clear();
+        } else {
+          DkSnackbar.show(
+            context: context,
+            message: '❌ Failed to send message. Please try again.',
+            variant: DkSnackbarVariant.error,
+          );
+        }
+      }
+    } catch (e) {
+      if (mounted) {
+        DkSnackbar.show(
+          context: context,
+          message: '❌ Connection error. Please check your internet.',
+          variant: DkSnackbarVariant.error,
+        );
+      }
+    } finally {
+      if (mounted) {
+        setState(() => _isLoading = false);
+      }
+    }
   }
 
   @override
@@ -70,39 +153,70 @@ class _ContactSectionState extends State<ContactSection> {
                   ),
                 ],
               ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  Text(
-                    "Let's build something amazing together.",
-                    textAlign: TextAlign.center,
-                    style: theme.textTheme.titleMedium?.copyWith(
-                      color: colorScheme.onSurfaceVariant,
+              child: Form(
+                key: _formKey,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    Text(
+                      "Let's build something amazing together.",
+                      textAlign: TextAlign.center,
+                      style: theme.textTheme.titleMedium?.copyWith(
+                        color: colorScheme.onSurfaceVariant,
+                      ),
                     ),
-                  ),
-                  const SizedBox(height: 32),
-                  DkTextField(
-                    controller: _nameController,
-                    hintText: 'Your Name',
-                  ),
-                  const SizedBox(height: 16),
-                  DkTextField(
-                    controller: _emailController,
-                    hintText: 'Your Email',
-                    keyboardType: TextInputType.emailAddress,
-                  ),
-                  const SizedBox(height: 16),
-                  DkTextField(
-                    controller: _messageController,
-                    hintText: 'Your Message',
-                    maxLines: 5,
-                  ),
-                  const SizedBox(height: 32),
-                  DkButton.filled(
-                    label: const Text('Send Message'),
-                    onPressed: _submit,
-                  ),
-                ],
+                    const SizedBox(height: 32),
+                    DkTextField(
+                      controller: _nameController,
+                      hintText: 'Your Name',
+                      textInputAction: TextInputAction.next,
+                      autovalidateMode: AutovalidateMode.onUserInteraction,
+                      validator: (value) {
+                        if (value == null || value.trim().isEmpty) {
+                          return 'Please enter your name.';
+                        }
+                        return null;
+                      },
+                    ),
+                    const SizedBox(height: 16),
+                    DkTextField(
+                      controller: _emailController,
+                      hintText: 'Your Email',
+                      keyboardType: TextInputType.emailAddress,
+                      textInputAction: TextInputAction.next,
+                      autovalidateMode: AutovalidateMode.onUserInteraction,
+                      validator: (value) {
+                        if (value == null || value.trim().isEmpty) {
+                          return 'Please enter your email.';
+                        }
+                        final emailRegex = RegExp(r'^[^@]+@[^@]+\.[^@]+');
+                        if (!emailRegex.hasMatch(value)) {
+                          return 'Please enter a valid email address.';
+                        }
+                        return null;
+                      },
+                    ),
+                    const SizedBox(height: 16),
+                    DkTextField(
+                      controller: _messageController,
+                      hintText: 'Your Message',
+                      maxLines: 5,
+                      autovalidateMode: AutovalidateMode.onUserInteraction,
+                      validator: (value) {
+                        if (value == null || value.trim().isEmpty) {
+                          return 'Please enter your message.';
+                        }
+                        return null;
+                      },
+                    ),
+                    const SizedBox(height: 32),
+                    DkButton.filled(
+                      label: const Text('Send Message'),
+                      isLoading: _isLoading,
+                      onPressed: _submit,
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
@@ -116,16 +230,37 @@ class _ContactSectionState extends State<ContactSection> {
             alignment: WrapAlignment.center,
             children: [
               DkButton.text(
-                label: const Text('GitHub'),
-                onPressed: () {},
+                label: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    FaIcon(
+                      FontAwesomeIcons.github,
+                      size: 20,
+                      color: theme.brightness == Brightness.dark
+                          ? Colors.white
+                          : Colors.black,
+                    ),
+                    const SizedBox(width: 8),
+                    const Text('GitHub'),
+                  ],
+                ),
+                onPressed: () => _launchURL('https://github.com/bbarretoweb'),
               ),
               DkButton.text(
-                label: const Text('LinkedIn'),
-                onPressed: () {},
-              ),
-              DkButton.text(
-                label: const Text('X (Twitter)'),
-                onPressed: () {},
+                label: const Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    FaIcon(
+                      FontAwesomeIcons.linkedin,
+                      size: 20,
+                      color: Color(0xFF0A66C2), // LinkedIn Official Blue
+                    ),
+                    SizedBox(width: 8),
+                    Text('LinkedIn'),
+                  ],
+                ),
+                onPressed: () =>
+                    _launchURL('https://www.linkedin.com/in/bbarretoweb/'),
               ),
             ],
           ),

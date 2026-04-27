@@ -38,8 +38,8 @@ class _HeroSectionState extends ConsumerState<HeroSection> {
     return MouseRegion(
       onHover: (event) => _mousePos.value = event.localPosition,
       onExit: (_) => _mousePos.value = null,
-      child: SizedBox(
-        height: size.height,
+      child: Container(
+        constraints: BoxConstraints(minHeight: size.height),
         child: Stack(
           children: [
             // Dot-grid background
@@ -55,29 +55,34 @@ class _HeroSectionState extends ConsumerState<HeroSection> {
                 ),
               ),
             ),
-            // Content without scroll parallax
-            Center(
-              child: MaxWidthBox(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 32),
-                  child: isWide
-                      ? Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            _avatarBlock(context),
-                            const SizedBox(width: 64),
-                            Flexible(child: _textBlock(context)),
-                          ],
-                        )
-                      : Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            const SizedBox(height: 80),
-                            _avatarBlock(context),
-                            const SizedBox(height: 32),
-                            _textBlock(context),
-                          ],
-                        ),
+            // Content centered within at least size.height
+            ConstrainedBox(
+              constraints: BoxConstraints(minHeight: size.height),
+              child: Center(
+                child: MaxWidthBox(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 32,
+                      vertical: 80,
+                    ),
+                    child: isWide
+                        ? Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              _avatarBlock(context),
+                              const SizedBox(width: 64),
+                              Flexible(child: _textBlock(context)),
+                            ],
+                          )
+                        : Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              _avatarBlock(context),
+                              const SizedBox(height: 32),
+                              _textBlock(context),
+                            ],
+                          ),
+                  ),
                 ),
               ),
             ),

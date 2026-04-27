@@ -315,6 +315,9 @@ class _LivePreviewPanel extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final cs = theme.colorScheme;
+    final brandLabel = brandLabels[themeState.brandId] ?? themeState.brandId;
+    final modeLabel =
+        themeState.brightness == Brightness.dark ? 'Dark' : 'Light';
 
     return Container(
       width: double.infinity,
@@ -331,14 +334,17 @@ class _LivePreviewPanel extends StatelessWidget {
             children: [
               Icon(Icons.auto_awesome_rounded, size: 16, color: cs.primary),
               const SizedBox(width: 8),
-              Text(
-                'Live Component Preview',
-                style: theme.textTheme.labelLarge?.copyWith(
-                  color: cs.primary,
-                  letterSpacing: 0.5,
+              Expanded(
+                child: Text(
+                  'Live Component Preview',
+                  style: theme.textTheme.labelLarge?.copyWith(
+                    color: cs.primary,
+                    letterSpacing: 0.5,
+                  ),
+                  maxLines: 3,
                 ),
               ),
-              const Spacer(),
+              const SizedBox(width: 16),
               Container(
                 padding: const EdgeInsets.symmetric(
                   horizontal: 10,
@@ -349,8 +355,7 @@ class _LivePreviewPanel extends StatelessWidget {
                   borderRadius: BorderRadius.circular(999),
                 ),
                 child: Text(
-                  '${brandLabels[themeState.brandId] ?? themeState.brandId} · '
-                  '${themeState.brightness == Brightness.dark ? 'Dark' : 'Light'}',
+                  '$brandLabel · $modeLabel',
                   style: theme.textTheme.labelSmall?.copyWith(
                     color: cs.primary,
                     fontWeight: FontWeight.w600,
@@ -404,15 +409,14 @@ class _LivePreviewPanel extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 24),
-          // Color row
-          Row(
+          // Color chips
+          Wrap(
+            spacing: 12,
+            runSpacing: 12,
             children: [
               _ColorChip(label: 'Primary', color: cs.primary),
-              const SizedBox(width: 8),
               _ColorChip(label: 'Secondary', color: cs.secondary),
-              const SizedBox(width: 8),
               _ColorChip(label: 'Tertiary', color: cs.tertiary),
-              const SizedBox(width: 8),
               _ColorChip(label: 'Surface', color: cs.surface),
             ],
           ),

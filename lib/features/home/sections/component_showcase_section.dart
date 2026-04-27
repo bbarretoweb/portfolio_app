@@ -86,18 +86,28 @@ class _ComponentShowcaseSectionState extends State<ComponentShowcaseSection>
                 AnimatedBuilder(
                   animation: _tabController,
                   builder: (context, child) {
-                    return IndexedStack(
-                      index: _tabController.index,
-                      children: [
-                        _ActionsShowcase(),
-                        _FormsShowcase(
+                    Widget activeTab;
+                    switch (_tabController.index) {
+                      case 0:
+                        activeTab = _ActionsShowcase();
+                      case 1:
+                        activeTab = _FormsShowcase(
                           switchValue: _switchValue,
                           onSwitchChanged: (v) =>
                               setState(() => _switchValue = v),
-                        ),
-                        _FeedbackShowcase(),
-                        _DisplayShowcase(),
-                      ],
+                        );
+                      case 2:
+                        activeTab = _FeedbackShowcase();
+                      case 3:
+                      default:
+                        activeTab = _DisplayShowcase();
+                    }
+
+                    // Key ensures that the widget tree is rebuilt on tab
+                    // change, triggering the EntranceFader animations.
+                    return KeyedSubtree(
+                      key: ValueKey(_tabController.index),
+                      child: activeTab,
                     );
                   },
                 ),
@@ -169,35 +179,44 @@ class _ComponentPreview extends StatelessWidget {
 class _ActionsShowcase extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final items = [
+      _ComponentPreview(
+        className: 'DkButton.filled',
+        child: DkButton.filled(
+          label: const Text('Filled'),
+          onPressed: () {},
+        ),
+      ),
+      _ComponentPreview(
+        className: 'DkButton.outlined',
+        child: DkButton.outlined(
+          label: const Text('Outlined'),
+          onPressed: () {},
+        ),
+      ),
+      _ComponentPreview(
+        className: 'DkButton.text',
+        child: DkButton.text(label: const Text('Text'), onPressed: () {}),
+      ),
+      const _ComponentPreview(
+        className: 'DkButton.filled (Disabled)',
+        child: DkButton.filled(label: Text('Disabled')),
+      ),
+    ];
+
     return _SubSection(
       label: 'Buttons',
-      child: Wrap(
-        spacing: 16,
-        runSpacing: 16,
-        children: [
-          _ComponentPreview(
-            className: 'DkButton.filled',
-            child: DkButton.filled(
-              label: const Text('Filled'),
-              onPressed: () {},
-            ),
-          ),
-          _ComponentPreview(
-            className: 'DkButton.outlined',
-            child: DkButton.outlined(
-              label: const Text('Outlined'),
-              onPressed: () {},
-            ),
-          ),
-          _ComponentPreview(
-            className: 'DkButton.text',
-            child: DkButton.text(label: const Text('Text'), onPressed: () {}),
-          ),
-          const _ComponentPreview(
-            className: 'DkButton.filled (Disabled)',
-            child: DkButton.filled(label: Text('Disabled')),
-          ),
-        ],
+      child: Center(
+        child: Wrap(
+          spacing: 16,
+          runSpacing: 16,
+          children: List.generate(items.length, (index) {
+            return EntranceFader(
+              delay: Duration(milliseconds: 100 * index),
+              child: items[index],
+            );
+          }),
+        ),
       ),
     );
   }
@@ -215,42 +234,51 @@ class _FormsShowcase extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final items = [
+      const _ComponentPreview(
+        className: 'DkTextField',
+        child: DkTextField(hintText: 'Normal text field'),
+      ),
+      const _ComponentPreview(
+        className: 'DkTextField (Error)',
+        child: DkTextField(
+          hintText: 'Error state',
+          errorText: 'This field is required',
+        ),
+      ),
+      _ComponentPreview(
+        className: 'DkSwitch',
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            DkSwitch(
+              value: switchValue,
+              onChanged: onSwitchChanged,
+              semanticLabel: 'Example switch',
+            ),
+            const SizedBox(width: 12),
+            Text(
+              switchValue ? 'On' : 'Off',
+              style: theme.textTheme.labelLarge,
+            ),
+          ],
+        ),
+      ),
+    ];
+
     return _SubSection(
       label: 'Inputs',
-      child: Wrap(
-        spacing: 16,
-        runSpacing: 16,
-        children: [
-          const _ComponentPreview(
-            className: 'DkTextField',
-            child: DkTextField(hintText: 'Normal text field'),
-          ),
-          const _ComponentPreview(
-            className: 'DkTextField (Error)',
-            child: DkTextField(
-              hintText: 'Error state',
-              errorText: 'This field is required',
-            ),
-          ),
-          _ComponentPreview(
-            className: 'DkSwitch',
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                DkSwitch(
-                  value: switchValue,
-                  onChanged: onSwitchChanged,
-                  semanticLabel: 'Example switch',
-                ),
-                const SizedBox(width: 12),
-                Text(
-                  switchValue ? 'On' : 'Off',
-                  style: theme.textTheme.labelLarge,
-                ),
-              ],
-            ),
-          ),
-        ],
+      child: Center(
+        child: Wrap(
+          spacing: 16,
+          runSpacing: 16,
+          children: List.generate(items.length, (index) {
+            return EntranceFader(
+              delay: Duration(milliseconds: 100 * index),
+              child: items[index],
+            );
+          }),
+        ),
       ),
     );
   }
@@ -259,58 +287,67 @@ class _FormsShowcase extends StatelessWidget {
 class _FeedbackShowcase extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final items = [
+      const _ComponentPreview(
+        className: 'DkBadge',
+        child: DkBadge(
+          child: Icon(Icons.notifications_outlined),
+        ),
+      ),
+      const _ComponentPreview(
+        className: 'DkBadge (Count)',
+        child: DkBadge(
+          count: 7,
+          child: Icon(Icons.mail_outline_rounded),
+        ),
+      ),
+      _ComponentPreview(
+        className: 'DkSnackbar (Info)',
+        child: DkButton.outlined(
+          label: const Text('Show Info'),
+          onPressed: () => DkSnackbar.show(
+            context: context,
+            message: 'ℹ️ This is an informational message.',
+          ),
+        ),
+      ),
+      _ComponentPreview(
+        className: 'DkSnackbar (Success)',
+        child: DkButton.outlined(
+          label: const Text('Show Success'),
+          onPressed: () => DkSnackbar.show(
+            context: context,
+            message: '✅ Operation completed successfully!',
+            variant: DkSnackbarVariant.success,
+          ),
+        ),
+      ),
+      _ComponentPreview(
+        className: 'DkSnackbar (Error)',
+        child: DkButton.outlined(
+          label: const Text('Show Error'),
+          onPressed: () => DkSnackbar.show(
+            context: context,
+            message: '❌ Something went wrong.',
+            variant: DkSnackbarVariant.error,
+          ),
+        ),
+      ),
+    ];
+
     return _SubSection(
       label: 'Feedback',
-      child: Wrap(
-        spacing: 16,
-        runSpacing: 16,
-        children: [
-          const _ComponentPreview(
-            className: 'DkBadge',
-            child: DkBadge(
-              child: Icon(Icons.notifications_outlined),
-            ),
-          ),
-          const _ComponentPreview(
-            className: 'DkBadge (Count)',
-            child: DkBadge(
-              count: 7,
-              child: Icon(Icons.mail_outline_rounded),
-            ),
-          ),
-          _ComponentPreview(
-            className: 'DkSnackbar (Info)',
-            child: DkButton.outlined(
-              label: const Text('Show Info'),
-              onPressed: () => DkSnackbar.show(
-                context: context,
-                message: 'ℹ️ This is an informational message.',
-              ),
-            ),
-          ),
-          _ComponentPreview(
-            className: 'DkSnackbar (Success)',
-            child: DkButton.outlined(
-              label: const Text('Show Success'),
-              onPressed: () => DkSnackbar.show(
-                context: context,
-                message: '✅ Operation completed successfully!',
-                variant: DkSnackbarVariant.success,
-              ),
-            ),
-          ),
-          _ComponentPreview(
-            className: 'DkSnackbar (Error)',
-            child: DkButton.outlined(
-              label: const Text('Show Error'),
-              onPressed: () => DkSnackbar.show(
-                context: context,
-                message: '❌ Something went wrong.',
-                variant: DkSnackbarVariant.error,
-              ),
-            ),
-          ),
-        ],
+      child: Center(
+        child: Wrap(
+          spacing: 16,
+          runSpacing: 16,
+          children: List.generate(items.length, (index) {
+            return EntranceFader(
+              delay: Duration(milliseconds: 100 * index),
+              child: items[index],
+            );
+          }),
+        ),
       ),
     );
   }
@@ -322,90 +359,104 @@ class _DisplayShowcase extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _SubSection(
-          label: 'Chips & Tags',
-          child: Wrap(
-            spacing: 16,
-            runSpacing: 16,
-            children: [
-              const _ComponentPreview(
-                className: 'DkChip.filter',
-                child: DkChip(
-                  variant: DkChipVariant.filter,
-                  label: Text('Filter Chip'),
-                ),
-              ),
-              _ComponentPreview(
-                className: 'DkChip.input',
-                child: DkChip(
-                  variant: DkChipVariant.input,
-                  label: const Text('Input Chip'),
-                  onDeleted: () {},
-                ),
-              ),
-              _ComponentPreview(
-                className: 'DkTag',
-                child: Wrap(
-                  spacing: 8,
-                  children: [
-                    const DkTag(label: 'Default'),
-                    DkTag(
-                      label: 'Success',
-                      backgroundColor: Colors.green.withAlpha(30),
-                      textColor: Colors.green.shade700,
+        EntranceFader(
+          child: _SubSection(
+            label: 'Chips & Tags',
+            child: Center(
+              child: Wrap(
+                spacing: 16,
+                runSpacing: 16,
+                children: [
+                  const _ComponentPreview(
+                    className: 'DkChip.filter',
+                    child: DkChip(
+                      variant: DkChipVariant.filter,
+                      label: Text('Filter Chip'),
                     ),
-                  ],
-                ),
+                  ),
+                  _ComponentPreview(
+                    className: 'DkChip.input',
+                    child: DkChip(
+                      variant: DkChipVariant.input,
+                      label: const Text('Input Chip'),
+                      onDeleted: () {},
+                    ),
+                  ),
+                  _ComponentPreview(
+                    className: 'DkTag',
+                    child: Wrap(
+                      spacing: 8,
+                      children: [
+                        const DkTag(label: 'Default'),
+                        DkTag(
+                          label: 'Success',
+                          backgroundColor: Colors.green.withAlpha(30),
+                          textColor: Colors.green.shade700,
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
               ),
-            ],
+            ),
           ),
         ),
         const SizedBox(height: 32),
-        const _SubSection(
-          label: 'Avatars',
-          child: Wrap(
-            spacing: 16,
-            runSpacing: 16,
-            children: [
-              _ComponentPreview(
-                className: 'DkAvatar.sm',
-                child: DkAvatar(
-                  size: DkAvatarSize.sm,
-                  imageProvider: NetworkImage(
-                    'https://picsum.photos/seed/av1/48/48',
+        const EntranceFader(
+          delay: Duration(milliseconds: 100),
+          child: _SubSection(
+            label: 'Avatars',
+            child: Center(
+              child: Wrap(
+                spacing: 16,
+                runSpacing: 16,
+                children: [
+                  _ComponentPreview(
+                    className: 'DkAvatar.sm',
+                    child: DkAvatar(
+                      size: DkAvatarSize.sm,
+                      imageProvider: NetworkImage(
+                        'https://picsum.photos/seed/av1/48/48',
+                      ),
+                      semanticLabel: 'Small avatar',
+                    ),
                   ),
-                  semanticLabel: 'Small avatar',
-                ),
-              ),
-              _ComponentPreview(
-                className: 'DkAvatar.lg',
-                child: DkAvatar(
-                  size: DkAvatarSize.lg,
-                  imageProvider: NetworkImage(
-                    'https://picsum.photos/seed/av1/120/120',
+                  _ComponentPreview(
+                    className: 'DkAvatar.lg',
+                    child: DkAvatar(
+                      size: DkAvatarSize.lg,
+                      imageProvider: NetworkImage(
+                        'https://picsum.photos/seed/av1/120/120',
+                      ),
+                      semanticLabel: 'Large avatar',
+                    ),
                   ),
-                  semanticLabel: 'Large avatar',
-                ),
+                ],
               ),
-            ],
+            ),
           ),
         ),
         const SizedBox(height: 32),
-        const _SubSection(
-          label: 'Layout',
-          child: Wrap(
-            spacing: 16,
-            runSpacing: 16,
-            children: [
-              _ComponentPreview(
-                className: 'DkDivider',
-                child: DkDivider(),
+        const EntranceFader(
+          delay: Duration(milliseconds: 200),
+          child: _SubSection(
+            label: 'Layout',
+            child: Center(
+              child: Wrap(
+                spacing: 16,
+                runSpacing: 16,
+                children: [
+                  _ComponentPreview(
+                    className: 'DkDivider',
+                    child: DkDivider(),
+                  ),
+                  _ComponentPreview(
+                    className: 'DkDivider (With Label)',
+                    child: DkDivider(label: Text('Label')),
+                  ),
+                ],
               ),
-              _ComponentPreview(
-                className: 'DkDivider (With Label)',
-                child: DkDivider(label: Text('Label')),
-              ),
-            ],
+            ),
           ),
         ),
       ],
@@ -429,6 +480,86 @@ class _SubSection extends StatelessWidget {
         const SizedBox(height: 20),
         child,
       ],
+    );
+  }
+}
+
+/// A wrapper that applies a staggered slide and fade entrance animation.
+class EntranceFader extends StatefulWidget {
+  /// Creates an entrance fader.
+  const EntranceFader({
+    required this.child,
+    this.delay = Duration.zero,
+    this.duration = const Duration(milliseconds: 400),
+    this.offset = const Offset(0, 30),
+    super.key,
+  });
+
+  /// The widget to animate.
+  final Widget child;
+
+  /// Delay before the animation starts.
+  final Duration delay;
+
+  /// Duration of the animation.
+  final Duration duration;
+
+  /// Starting offset for the slide transition.
+  final Offset offset;
+
+  @override
+  State<EntranceFader> createState() => _EntranceFaderState();
+}
+
+class _EntranceFaderState extends State<EntranceFader>
+    with SingleTickerProviderStateMixin {
+  late final AnimationController _controller;
+  late final Animation<double> _fadeAnimation;
+  late final Animation<Offset> _slideAnimation;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(vsync: this, duration: widget.duration);
+
+    final curve = CurvedAnimation(
+      parent: _controller,
+      curve: Curves.easeOutCubic,
+    );
+
+    _fadeAnimation = Tween<double>(begin: 0, end: 1).animate(curve);
+    _slideAnimation = Tween<Offset>(
+      begin: widget.offset,
+      end: Offset.zero,
+    ).animate(curve);
+
+    Future.delayed(widget.delay, () {
+      if (mounted) {
+        _controller.forward();
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return AnimatedBuilder(
+      animation: _controller,
+      builder: (context, child) {
+        return Opacity(
+          opacity: _fadeAnimation.value,
+          child: Transform.translate(
+            offset: _slideAnimation.value,
+            child: child,
+          ),
+        );
+      },
+      child: widget.child, // Prevents unnecessary rebuilds of the child tree
     );
   }
 }
