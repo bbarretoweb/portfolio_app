@@ -1,4 +1,6 @@
+import 'dart:async';
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:design_kit/design_kit.dart';
 import 'package:flutter/material.dart';
@@ -82,7 +84,7 @@ class _ContactSectionState extends State<ContactSection> {
           'email': _emailController.text,
           'message': _messageController.text,
         }),
-      );
+      ).timeout(const Duration(seconds: 10));
 
       if (mounted) {
         if (response.statusCode == 200 || response.statusCode == 201) {
@@ -102,11 +104,27 @@ class _ContactSectionState extends State<ContactSection> {
           );
         }
       }
+    } on TimeoutException {
+      if (mounted) {
+        DkSnackbar.show(
+          context: context,
+          message: '❌ Request timed out. Please check your internet.',
+          variant: DkSnackbarVariant.error,
+        );
+      }
+    } on SocketException {
+      if (mounted) {
+        DkSnackbar.show(
+          context: context,
+          message: '❌ Network error. Are you connected to the internet?',
+          variant: DkSnackbarVariant.error,
+        );
+      }
     } catch (e) {
       if (mounted) {
         DkSnackbar.show(
           context: context,
-          message: '❌ Connection error. Please check your internet.',
+          message: '❌ An unexpected error occurred. Please try again.',
           variant: DkSnackbarVariant.error,
         );
       }
@@ -143,7 +161,7 @@ class _ContactSectionState extends State<ContactSection> {
                     : colorScheme.surfaceContainer,
                 borderRadius: BorderRadius.circular(24),
                 border: Border.all(
-                  color: colorScheme.outline.withAlpha(40),
+                  color: colorScheme.outline.withAlpha(80),
                 ),
                 boxShadow: [
                   BoxShadow(
