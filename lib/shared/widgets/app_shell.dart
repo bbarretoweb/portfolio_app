@@ -52,7 +52,6 @@ class AppShell extends ConsumerWidget {
                           children: [
                             // Site Logo / Home anchor
                             InkWell(
-                              onHover: (_) {}, // Visual consistency
                               onTap: () => nav.scrollTo('hero'),
                               child: Row(
                                 children: [

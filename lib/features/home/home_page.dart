@@ -10,9 +10,6 @@ import 'package:portfolio_app/features/home/sections/projects_section.dart';
 import 'package:portfolio_app/features/home/sections/themeshow_section.dart';
 import 'package:portfolio_app/shared/widgets/animated_section.dart';
 
-/// Provides the current global vertical scroll offset of the home page.
-final scrollOffsetProvider = StateProvider<double>((ref) => 0.0);
-
 /// The single-page scrolling portfolio home.
 class HomePage extends ConsumerStatefulWidget {
   /// Creates the home page.
@@ -43,7 +40,6 @@ class _HomePageState extends ConsumerState<HomePage> {
 
   void _scrollListener() {
     final offset = _scrollController.offset;
-    ref.read(scrollOffsetProvider.notifier).state = offset;
 
     if (offset > 400 && !_showBackToTop) {
       setState(() => _showBackToTop = true);
