@@ -8,7 +8,10 @@ environment:
 
 dependencies:
   design_kit:
-    path: ../design_kit
+    # path: ../design_kit
+    git:
+      url: https://github.com/bbarretoweb/design_kit.git
+      ref: master
   flutter:
     sdk: flutter
   flutter_dotenv: ^6.0.1

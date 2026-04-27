@@ -68,9 +68,11 @@ packages:
   design_kit:
     dependency: "direct main"
     description:
-      path: "../design_kit"
-      relative: true
-    source: path
+      path: "."
+      ref: master
+      resolved-ref: fba683be94e404f8b2dc18b9913648ccbd673f38
+      url: "https://github.com/bbarretoweb/design_kit.git"
+    source: git
     version: "0.0.1"
   fake_async:
     dependency: transitive
