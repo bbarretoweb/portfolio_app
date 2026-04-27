@@ -28,8 +28,9 @@ class AppShell extends ConsumerWidget {
       extendBodyBehindAppBar: true,
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(64),
-        child: ClipRect(
-          child: BackdropFilter(
+        child: RepaintBoundary(
+          child: ClipRect(
+            child: BackdropFilter(
             filter: ImageFilter.blur(sigmaX: 20, sigmaY: 20),
             child: Container(
               decoration: BoxDecoration(
@@ -124,6 +125,7 @@ class AppShell extends ConsumerWidget {
                   ),
                 ),
               ),
+            ),
             ),
           ),
         ),

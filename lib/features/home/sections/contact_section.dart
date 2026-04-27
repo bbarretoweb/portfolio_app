@@ -96,6 +96,7 @@ class _ContactSectionState extends State<ContactSection> {
           _nameController.clear();
           _emailController.clear();
           _messageController.clear();
+          _formKey.currentState?.reset();
         } else {
           DkSnackbar.show(
             context: context,
