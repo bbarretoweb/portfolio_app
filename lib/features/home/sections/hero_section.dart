@@ -72,6 +72,7 @@ class _HeroSectionState extends ConsumerState<HeroSection> {
                       : Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
+                            const SizedBox(height: 80),
                             _avatarBlock(context),
                             const SizedBox(height: 32),
                             _textBlock(context),

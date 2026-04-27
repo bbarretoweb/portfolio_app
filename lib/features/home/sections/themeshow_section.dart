@@ -176,6 +176,10 @@ class _BrandCardState extends State<_BrandCard> {
                     _Swatch(color: previewScheme.secondary),
                     const SizedBox(width: 6),
                     _Swatch(color: previewScheme.tertiary),
+                    const SizedBox(width: 6),
+                    _Swatch(color: previewScheme.onSurface),
+                    const SizedBox(width: 6),
+                    _Swatch(color: previewScheme.onSurfaceVariant),
                     const Spacer(),
                     if (widget.isSelected)
                       Icon(
@@ -243,60 +247,59 @@ class _BrightnessToggle extends StatelessWidget {
     final theme = Theme.of(context);
 
     return Semantics(
-        button: true,
-        label: isDark ? 'Switch to light mode' : 'Switch to dark mode',
-        child: MouseRegion(
-          cursor: SystemMouseCursors.click,
-          child: GestureDetector(
-            onTap: onToggle,
-            child: AnimatedContainer(
-              duration: const Duration(milliseconds: 300),
-              curve: Curves.easeInOut,
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-              decoration: BoxDecoration(
-                color: cs.primaryContainer.withAlpha(80),
-                borderRadius: BorderRadius.circular(999),
-                border: Border.all(color: cs.primary.withAlpha(80)),
-              ),
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  AnimatedSwitcher(
-                    duration: const Duration(milliseconds: 400),
-                    switchInCurve: Curves.easeOutBack,
-                    transitionBuilder: (child, anim) => RotationTransition(
-                      turns: Tween<double>(begin: -0.25, end: 0).animate(anim),
-                      child: ScaleTransition(scale: anim, child: child),
-                    ),
-                    child: Icon(
-                      isDark
-                          ? Icons.dark_mode_rounded
-                          : Icons.light_mode_rounded,
-                      key: ValueKey(isDark),
-                      color: cs.primary,
-                      size: 20,
-                    ),
+      button: true,
+      label: isDark ? 'Switch to light mode' : 'Switch to dark mode',
+      child: MouseRegion(
+        cursor: SystemMouseCursors.click,
+        child: GestureDetector(
+          onTap: onToggle,
+          child: AnimatedContainer(
+            duration: const Duration(milliseconds: 300),
+            curve: Curves.easeInOut,
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+            decoration: BoxDecoration(
+              color: cs.primaryContainer.withAlpha(80),
+              borderRadius: BorderRadius.circular(999),
+              border: Border.all(color: cs.primary.withAlpha(80)),
+            ),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                AnimatedSwitcher(
+                  duration: const Duration(milliseconds: 400),
+                  switchInCurve: Curves.easeOutBack,
+                  transitionBuilder: (child, anim) => RotationTransition(
+                    turns: Tween<double>(begin: -0.25, end: 0).animate(anim),
+                    child: ScaleTransition(scale: anim, child: child),
                   ),
-                  const SizedBox(width: 10),
-                  Text(
-                    isDark ? 'Dark Mode' : 'Light Mode',
-                    style: theme.textTheme.labelLarge?.copyWith(
-                      color: cs.primary,
-                      fontWeight: FontWeight.w600,
-                    ),
+                  child: Icon(
+                    isDark ? Icons.dark_mode_rounded : Icons.light_mode_rounded,
+                    key: ValueKey(isDark),
+                    color: cs.primary,
+                    size: 20,
                   ),
-                  const SizedBox(width: 10),
-                  Text(
-                    '— tap to switch',
-                    style: theme.textTheme.bodySmall?.copyWith(
-                      color: cs.onSurface.withAlpha(120),
-                    ),
+                ),
+                const SizedBox(width: 10),
+                Text(
+                  isDark ? 'Dark Mode' : 'Light Mode',
+                  style: theme.textTheme.labelLarge?.copyWith(
+                    color: cs.primary,
+                    fontWeight: FontWeight.w600,
                   ),
-                ],
-              ),
+                ),
+                const SizedBox(width: 10),
+                Text(
+                  '— tap to switch',
+                  style: theme.textTheme.bodySmall?.copyWith(
+                    color: cs.onSurface.withAlpha(120),
+                  ),
+                ),
+              ],
             ),
           ),
-        ),);
+        ),
+      ),
+    );
   }
 }
 
@@ -347,9 +350,7 @@ class _LivePreviewPanel extends StatelessWidget {
                 ),
                 child: Text(
                   '${brandLabels[themeState.brandId] ?? themeState.brandId} · '
-                  '${themeState.brightness == Brightness.dark 
-                      ? 'Dark' 
-                      : 'Light'}',
+                  '${themeState.brightness == Brightness.dark ? 'Dark' : 'Light'}',
                   style: theme.textTheme.labelSmall?.copyWith(
                     color: cs.primary,
                     fontWeight: FontWeight.w600,
