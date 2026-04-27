@@ -5,7 +5,11 @@ import 'package:portfolio_app/app.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await dotenv.load();
+  try {
+    await dotenv.load();
+  } catch (e) {
+    debugPrint('Warning: .env file not found or failed to load. $e');
+  }
 
   runApp(
     const ProviderScope(
