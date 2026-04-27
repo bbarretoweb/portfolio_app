@@ -119,8 +119,6 @@ class _HeroSectionState extends ConsumerState<HeroSection> {
             AppAssets.meHD,
             width: 160,
             height: 160,
-            cacheWidth: 320,
-            cacheHeight: 320,
             fit: BoxFit.cover,
           ),
         ),
