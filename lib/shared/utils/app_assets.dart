@@ -20,8 +20,5 @@ abstract final class AppAssets {
   static const String devToolsThumbnail = '$_basePath/dev_tools.webp';
 
   /// Fav icon.
-  static const String favIcon = '$_basePath/fav_icon.webp';
-
-  /// Logo B icon.
-  static const String logoB = '$_basePath/logo_b_with_background.webp';
+  static const String favicon = '$_basePath/favicon.webp';
 }

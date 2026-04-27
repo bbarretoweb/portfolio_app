@@ -58,7 +58,7 @@ class AppShell extends ConsumerWidget {
                                   const DkAvatar(
                                     size: DkAvatarSize.sm,
                                     imageProvider: AssetImage(
-                                      AppAssets.logoB,
+                                      AppAssets.favicon,
                                     ),
                                     semanticLabel: 'Bruno',
                                   ),
