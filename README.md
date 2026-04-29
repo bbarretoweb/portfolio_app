@@ -55,7 +55,7 @@ The UI is strictly governed by a standalone, brand-agnostic design system packag
 ## 🚀 CI/CD Pipeline
 
 The project includes a fully automated GitHub Actions workflow (`deploy.yml`). 
-Upon pushing to the `master` branch, the pipeline:
+Upon pushing to the `main` branch, the pipeline:
 1. Provisions an Ubuntu runner with the latest Node.js/Flutter environments.
 2. Injects production secrets into the `.env` asset.
 3. Compiles the optimized Web release (`flutter build web --release`).
